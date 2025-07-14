@@ -3,7 +3,7 @@ import RoomList from './components/RoomList';
 import CreateRoomForm from './components/CreateRoomForm';
 import RoomDetail from './components/RoomDetail'; */
 
-import LoginPage from './pages/Login/LoginPage';
+import LoginPage from './pages/Login';
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
