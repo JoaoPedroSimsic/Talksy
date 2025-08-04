@@ -3,9 +3,11 @@ import RoomList from './components/RoomList';
 import CreateRoomForm from './components/CreateRoomForm';
 import RoomDetail from './components/RoomDetail'; */
 
-import LoginPage from './pages/Login';
+import LoginPage from './pages/Login/Login';
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+	
+import ProtectedRoutes from './components/ProtectedRoutes';
 
 import './style.css';
 
@@ -13,7 +15,13 @@ function App() {
 	return (
 		<Router>
 			<Routes>
-				<Route path="/" element={<LoginPage />} />
+				<Route path="/login" element={<LoginPage />} />
+
+				<Route element={<ProtectedRoutes />}>
+					<Route path="/dashboard" element={<LoginPage />} />
+				</Route>
+
+				<Route path="*" element={<div>404 Page not found</div>} />
 			</Routes>
 		</Router>
 	);
