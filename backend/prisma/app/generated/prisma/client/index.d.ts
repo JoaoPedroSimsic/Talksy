@@ -4726,13 +4726,13 @@ export namespace Prisma {
 
   export type RoomWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    name?: string
     AND?: RoomWhereInput | RoomWhereInput[]
     OR?: RoomWhereInput[]
     NOT?: RoomWhereInput | RoomWhereInput[]
-    name?: StringFilter<"Room"> | string
     messages?: MessageListRelationFilter
     members?: UserListRelationFilter
-  }, "id">
+  }, "id" | "name">
 
   export type RoomOrderByWithAggregationInput = {
     id?: SortOrder

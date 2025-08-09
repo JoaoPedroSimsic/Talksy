@@ -28,8 +28,13 @@ const Login = () => {
 	}, [navigate]);
 
 	return (
-		<div>
-			<LoginForm />
+		<div className="flex items-center justify-between h-screen">
+			<div className="w-1/2 h-screen flex items-center justify-center">
+				<LoginForm />
+			</div>
+			<div className="w-1/2 h-screen flex items-center justify-center">
+				<div>adadsa</div>
+			</div>
 		</div>
 	);
 };

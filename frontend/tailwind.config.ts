@@ -10,7 +10,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        roboto: ['Roboto', 'sans-serif'],
+				sans: ['Rubik', 'sans-serif'],
       },
       backgroundImage: {
       },
