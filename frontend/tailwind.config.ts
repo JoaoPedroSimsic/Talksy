@@ -12,8 +12,6 @@ export default {
       fontFamily: {
 				sans: ['Rubik', 'sans-serif'],
       },
-      backgroundImage: {
-      },
       screens: {
         xs: { max: '500px' },
       },

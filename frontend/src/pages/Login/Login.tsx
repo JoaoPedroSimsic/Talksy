@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import getCookie from "../../helpers/getCookie";
 
-const Login = () => {
+const Login: React.FC = () => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -12,7 +12,7 @@ const Login = () => {
 			try {
 				const token = getCookie("authToken");
 				if (token) {
-					const response = await axios.get("http://localhost:3000/auth/me", {
+					const response = await axios.get("http://localhost:3000/auth/check", {
 						withCredentials: true,
 					});
 					if (response.status === 200) {
@@ -28,12 +28,29 @@ const Login = () => {
 	}, [navigate]);
 
 	return (
-		<div className="flex items-center justify-between h-screen">
-			<div className="w-1/2 h-screen flex items-center justify-center">
+		<div className="flex w-full items-center justify-between h-screen">
+			<div className="bg-primary lg:bg-white relative w-full lg:w-1/2 h-screen flex items-center justify-center overflow-hidden">
+				<img
+					src="/assets/background.svg"
+					className="lg:hidden absolute scale-150"
+					alt="background"
+				/>
+				<div className="hidden lg:flex absolute top-10 left-10 h-10 w-40">
+					<img
+						src="/assets/logo.svg"
+						className="scale-70"
+						alt="background"
+					/>
+					<span className="flex items-center justify-center ml-1 text-xl font-bold">Talksy</span>
+				</div>
 				<LoginForm />
 			</div>
-			<div className="w-1/2 h-screen flex items-center justify-center">
-				<div>adadsa</div>
+			<div className="lg:bg-primary h-screen lg:w-1/2 h-screen hidden lg:flex items-center justify-center rounded-l-3xl overflow-hidden">
+				<img
+					src="/assets/background.svg"
+					className="scale-150"
+					alt="background"
+				/>
 			</div>
 		</div>
 	);
