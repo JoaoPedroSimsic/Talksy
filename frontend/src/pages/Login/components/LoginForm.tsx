@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import axios from "axios";
+import { useAuth } from "../../../context/useAuth";
 
 interface LoginState {
 	email: string;
@@ -45,7 +45,7 @@ const LoginForm: React.FC = () => {
 		loading: false,
 	});
 
-	const navigate = useNavigate();
+	const { login } = useAuth();
 
 	const backendUrl = "http://localhost:3000";
 	const loginEndpoint = `${backendUrl}/auth/login`;
@@ -63,15 +63,13 @@ const LoginForm: React.FC = () => {
 		e.preventDefault();
 		setLoginState((prev) => ({ ...prev, loading: true, error: null }));
 		try {
-			const response = await axios.post(
+			await axios.post(
 				loginEndpoint,
 				{ email: loginState.email, password: loginState.password },
 				{ withCredentials: true },
 			);
 
-			if (response.status === 200) {
-				navigate("/dashboard");
-			}
+			login();
 		} catch (err: unknown) {
 			const errorMessage = getErrorMessage(err);
 			setLoginState((prev) => ({ ...prev, error: errorMessage }));
