@@ -7,7 +7,7 @@ const router = Router();
 
 router.post('/login', AuthController.login);
 router.get('/logout', AuthController.logout);
-router.get('/me', authMiddleware, (req: AuthRequest, res: Response) => {
+router.get('/check', authMiddleware, (req: AuthRequest, res: Response) => {
 	res.status(200).json({ user: req.userId });
 });
 

@@ -2,6 +2,7 @@ const getCookie = (name: string): string | null => {
 	const searchedCookie = name + '=';
 
 	const cookiesArray = document.cookie.split(';');
+	console.log(cookiesArray)
 
 	for (let i = 0; i < cookiesArray.length; i++) {
 		let cookie = cookiesArray[i];
