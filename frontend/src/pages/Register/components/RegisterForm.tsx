@@ -1,11 +1,12 @@
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../../context/useAuth";
+import axios from "axios";
 
-interface LoginState {
+interface RegisterState {
+	username: string;
 	email: string;
 	password: string;
+	confirmPassword: string;
 	error: string | null;
 	loading: boolean;
 }
@@ -38,57 +39,68 @@ function getErrorMessage(err: unknown): string {
 	return "An unexpected error occurred.";
 }
 
-const LoginForm: React.FC = () => {
-	const [loginState, setLoginState] = useState<LoginState>({
+const RegisterForm: React.FC = () => {
+	const [registerState, setRegisterState] = useState<RegisterState>({
+		username: "",
 		email: "",
 		password: "",
+		confirmPassword: "",
 		error: null,
 		loading: false,
 	});
 
-	const { login } = useAuth();
 	const navigate = useNavigate();
 
 	const backendUrl = "http://localhost:3000";
-	const loginEndpoint = `${backendUrl}/auth/login`;
+	const loginEndpoint = `${backendUrl}/users`;
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
-		setLoginState((prev) => ({
+		setRegisterState((prev) => ({
 			...prev,
 			[name]: value,
 			error: null,
 		}));
 	};
 
-	const handleRegister = (e: React.MouseEvent<HTMLAnchorElement>): void => {
+	const handleSignIn = (e: React.MouseEvent<HTMLAnchorElement>): void => {
 		e.preventDefault();
-		navigate("/register");
+		navigate("/login");
 	};
 
-	const handleSubmit = async (
-		e: React.FormEvent<HTMLFormElement>,
-	): Promise<void> => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		setLoginState((prev) => ({ ...prev, loading: true, error: null }));
+		setRegisterState((prev) => ({ ...prev, loading: true, error: null }));
+
+		if (registerState.password !== registerState.confirmPassword) {
+			setRegisterState((prev) => ({
+				...prev,
+				loading: false,
+				error: "Passwords do not match!",
+			}));
+			return;
+		}
+
 		try {
 			await axios.post(
 				loginEndpoint,
-				{ email: loginState.email, password: loginState.password },
+				{
+					username: registerState.username,
+					email: registerState.email,
+					password: registerState.password,
+				},
 				{ withCredentials: true },
 			);
-
-			login();
 		} catch (err: unknown) {
 			const errorMessage = getErrorMessage(err);
-			setLoginState((prev) => ({ ...prev, error: errorMessage }));
+			setRegisterState((prev) => ({ ...prev, error: errorMessage }));
 		} finally {
-			setLoginState((prev) => ({ ...prev, loading: false }));
+			setRegisterState((prev) => ({ ...prev, loading: false }));
 		}
 	};
 
 	return (
-		<div className="bg-white relative flex flex-col items-center justify-center w-3/4 py-20 rounded-xl">
+		<div className="bg-white relative flex flex-col items-center justify-center max-h-[95%] lg:h-auto w-3/4 py-20 rounded-xl">
 			<div className="flex lg:hidden absolute top-7 left-7 h-10 w-40">
 				<img src="/assets/logo.svg" className="scale-70" alt="background" />
 				<span className="flex items-center justify-center ml-1 text-xl font-bold">
@@ -96,9 +108,9 @@ const LoginForm: React.FC = () => {
 				</span>
 			</div>
 			<div className="flex flex-col space-y-5 items-center justify-center my-7">
-				<span className="text-3xl font-bold">Welcome Back</span>
+				<span className="text-3xl font-bold">Create an Account</span>
 				<span className="text-gray-500 text-sm">
-					Enter your email and password to access your account.
+					Join the chat. It's free and easy to create an account.
 				</span>
 			</div>
 			<form
@@ -106,6 +118,20 @@ const LoginForm: React.FC = () => {
 				className="flex flex-col items-center justify-center h-full w-3/4 py-4"
 			>
 				<div className="w-full">
+					<div className="mb-5">
+						<label htmlFor="username" className="text-md">
+							Username
+						</label>
+						<input
+							className="w-full p-2 border border-solid border-gray-300 rounded-md"
+							name="username"
+							type="text"
+							placeholder="Enter your email"
+							value={registerState.username}
+							onChange={handleInputChange}
+							required
+						/>
+					</div>
 					<div className="mb-5">
 						<label htmlFor="email" className="text-md">
 							E-mail
@@ -115,22 +141,35 @@ const LoginForm: React.FC = () => {
 							name="email"
 							type="email"
 							placeholder="Enter your email"
-							value={loginState.email}
+							value={registerState.email}
 							onChange={handleInputChange}
 							required
 						/>
 					</div>
-
-					<div>
+					<div className="mb-5">
 						<label htmlFor="password" className="text-md">
 							Password
 						</label>
 						<input
-							className="w-full my-2 p-2 border border-solid border-gray-300 rounded-md"
+							className="w-full p-2 border border-solid border-gray-300 rounded-md"
 							name="password"
 							type="password"
+							placeholder="Enter your email"
+							value={registerState.password}
+							onChange={handleInputChange}
+							required
+						/>
+					</div>
+					<div>
+						<label htmlFor="confirmPassword" className="text-md">
+							Confirm Password
+						</label>
+						<input
+							className="w-full my-2 p-2 border border-solid border-gray-300 rounded-md"
+							name="confirmPassword"
+							type="password"
 							placeholder="Enter your password"
-							value={loginState.password}
+							value={registerState.confirmPassword}
 							onChange={handleInputChange}
 							required
 						/>
@@ -155,25 +194,27 @@ const LoginForm: React.FC = () => {
 					</div>
 				</div>
 
-				{loginState.error && <p style={{ color: "red" }}>{loginState.error}</p>}
+				{registerState.error && (
+					<p style={{ color: "red" }}>{registerState.error}</p>
+				)}
 
 				<button
 					type="submit"
 					className="bg-primary w-full my-3 p-2 rounded-md text-white cursor-pointer hover:bg-secondary"
-					disabled={loginState.loading}
+					disabled={registerState.loading}
 				>
-					{loginState.loading ? "Logging in" : "Submit"}
+					{registerState.loading ? "Registering..." : "Register"}
 				</button>
 
 				<div className="bg-gray-400 h-px w-3/4 my-6"></div>
 
 				<div className="flex items-center justify-center my-2 w-full">
-					<span className="text-sm">Don't Have An Account?</span>
+					<span className="text-sm">Already Have An Account?</span>
 					<a
-						onClick={handleRegister}
+						onClick={handleSignIn}
 						className="text-primary mx-1 text-sm cursor-pointer hover:text-secondary"
 					>
-						Register Now.
+						Sign In.
 					</a>
 				</div>
 			</form>
@@ -181,4 +222,4 @@ const LoginForm: React.FC = () => {
 	);
 };
 
-export default LoginForm;
+export default RegisterForm;
