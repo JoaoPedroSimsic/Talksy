@@ -1,48 +1,39 @@
 import { useState } from "react";
 import axios from "axios";
+import validator from 'validator';
+import parseAxiosError from "../../../helpers/parseAxiosError";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../context/useAuth";
 
 interface LoginState {
 	email: string;
 	password: string;
-	error: string | null;
+	error: string[];
+	fieldErrors: {
+		email?: string;
+		password?: string;
+	};
 	loading: boolean;
 }
 
-function isObjectWithMessage(err: unknown): err is { message: string } {
-	return (
-		typeof err === "object" &&
-		err !== null &&
-		"message" in err &&
-		typeof (err as { message: unknown }).message === "string"
-	);
-}
+const validateEmail = (email: string): string | null => {
+	if (!email) return "Email is required";
+	if (!validator.isEmail(email)) return "Invalid email address";
+	return null;
+};
 
-function isObjectWithErrors(err: unknown): err is { errors: string[] } {
-	return (
-		typeof err === "object" &&
-		err !== null &&
-		"errors" in err &&
-		Array.isArray((err as { errors: unknown }).errors) &&
-		(err as { errors: unknown[] }).errors.every(
-			(item) => typeof item === "string",
-		)
-	);
-}
-
-function getErrorMessage(err: unknown): string {
-	if (err instanceof Error) return err.message;
-	if (isObjectWithMessage(err)) return err.message;
-	if (isObjectWithErrors(err)) return err.errors.join(", ");
-	return "An unexpected error occurred.";
-}
+const validatePassword = (password: string): string | null => {
+	if (!password) return "Password is required";
+	if (password.length < 6) return "Password must be at least 6 characters";
+	return null;
+};
 
 const LoginForm: React.FC = () => {
 	const [loginState, setLoginState] = useState<LoginState>({
 		email: "",
 		password: "",
-		error: null,
+		error: [],
+		fieldErrors: {},
 		loading: false,
 	});
 
@@ -57,7 +48,11 @@ const LoginForm: React.FC = () => {
 		setLoginState((prev) => ({
 			...prev,
 			[name]: value,
-			error: null,
+			error: [],
+			fieldErrors: {
+				...prev.fieldErrors,
+				[name]: undefined,
+			},
 		}));
 	};
 
@@ -70,7 +65,28 @@ const LoginForm: React.FC = () => {
 		e: React.FormEvent<HTMLFormElement>,
 	): Promise<void> => {
 		e.preventDefault();
-		setLoginState((prev) => ({ ...prev, loading: true, error: null }));
+		setLoginState((prev) => ({
+			...prev,
+			error: [],
+			fieldErrors: {},
+		}));
+
+		const emailError = validateEmail(loginState.email);
+		const passwordError = validatePassword(loginState.password);
+
+		if (emailError) {
+			setLoginState((prev) => ({
+				...prev,
+				fieldErrors: {
+					email: emailError ?? undefined,
+					password: passwordError ?? undefined,
+				},
+			}));
+			return;
+		}
+
+		setLoginState((prev) => ({ ...prev, loading: true }));
+
 		try {
 			await axios.post(
 				loginEndpoint,
@@ -80,8 +96,16 @@ const LoginForm: React.FC = () => {
 
 			login();
 		} catch (err: unknown) {
-			const errorMessage = getErrorMessage(err);
-			setLoginState((prev) => ({ ...prev, error: errorMessage }));
+			const errors = parseAxiosError(err);
+
+			setLoginState((prev) => ({
+				...prev,
+				error: errors,
+				fieldErrors: {
+					email: "",
+					password: "",
+				},
+			}));
 		} finally {
 			setLoginState((prev) => ({ ...prev, loading: false }));
 		}
@@ -111,14 +135,18 @@ const LoginForm: React.FC = () => {
 							E-mail
 						</label>
 						<input
-							className="w-full p-2 border border-solid border-gray-300 rounded-md"
+							className={`w-full p-2 border border-solid rounded-md ${loginState.fieldErrors.email ? "border-red-500" : "border-gray-300"}`}
 							name="email"
-							type="email"
+							type="text"
 							placeholder="Enter your email"
 							value={loginState.email}
 							onChange={handleInputChange}
-							required
 						/>
+						{loginState.fieldErrors.email && (
+							<p className="text-red-500 text-sm mt-1">
+								{loginState.fieldErrors.email}
+							</p>
+						)}
 					</div>
 
 					<div>
@@ -126,14 +154,18 @@ const LoginForm: React.FC = () => {
 							Password
 						</label>
 						<input
-							className="w-full my-2 p-2 border border-solid border-gray-300 rounded-md"
+							className={`w-full p-2 border border-solid rounded-md ${loginState.fieldErrors.password ? "border-red-500" : "border-gray-300"}`}
 							name="password"
 							type="password"
 							placeholder="Enter your password"
 							value={loginState.password}
 							onChange={handleInputChange}
-							required
 						/>
+						{loginState.fieldErrors.password && (
+							<p className="text-red-500 text-sm mt-1">
+								{loginState.fieldErrors.password}
+							</p>
+						)}
 					</div>
 				</div>
 
@@ -155,7 +187,7 @@ const LoginForm: React.FC = () => {
 					</div>
 				</div>
 
-				{loginState.error && <p style={{ color: "red" }}>{loginState.error}</p>}
+				{loginState.error && <p className="text-red-500 m-2">{loginState.error}</p>}
 
 				<button
 					type="submit"

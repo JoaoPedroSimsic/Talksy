@@ -11,7 +11,12 @@ class AuthController {
 			const { email, password } = req.body;
 
 			if (!email || !password) {
-				res.status(401).json({ errors: ['Invalid credentials'] });
+				res.status(401).json({ errors: ['Missing credentials'] });
+				return;
+			}
+
+			if (password.length < 6) {
+				res.status(401).json({ errors: ['Password must be at least 6 characters']})
 				return;
 			}
 
@@ -22,8 +27,8 @@ class AuthController {
 				return;
 			}
 
-			if (!(await isValidPassword(password, user.password))) {
-				res.status(401).json({ errors: ['Invalid password'] });
+			if (!user || !(await isValidPassword(password, user.password))) {
+				res.status(401).json({ errors: ['Email or password incorrect'] });
 				return;
 			}
 
