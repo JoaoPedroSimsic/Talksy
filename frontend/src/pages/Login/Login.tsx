@@ -9,7 +9,7 @@ const Login: React.FC = () => {
 					className="lg:hidden absolute scale-150"
 					alt="background"
 				/>
-				<div className="hidden lg:flex absolute top-10 left-10 h-10 w-40">
+				<div className="hidden z-1 lg:flex absolute top-10 left-10 h-10 w-40">
 					<img
 						src="/assets/logo.svg"
 						className="scale-70"
