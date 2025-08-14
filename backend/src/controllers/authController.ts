@@ -33,7 +33,7 @@ class AuthController {
 			const user = await prisma.user.findUnique({ where: { email } });
 
 			if (!user) {
-				res.status(404).json({ errors: ["User not found"] });
+				res.status(404).json({ errors: ["User do not exists"] });
 				return;
 			}
 
