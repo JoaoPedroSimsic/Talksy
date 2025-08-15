@@ -36,7 +36,7 @@ const LoginForm: React.FC = () => {
   const backendUrl = 'http://localhost:3000';
   const loginEndpoint = `${backendUrl}/auth/login`;
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
     setLoginState((prev) => ({
       ...prev,
@@ -53,7 +53,7 @@ const LoginForm: React.FC = () => {
     navigate('/register');
   };
 
-  const handleCheckBoxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCheckBoxChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { checked, name } = e.target;
     setLoginState((prev) => ({
       ...prev,
