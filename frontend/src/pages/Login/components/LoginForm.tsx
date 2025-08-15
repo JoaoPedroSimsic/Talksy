@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../context/useAuth';
 import validateEmail from '../../../utils/validateEmail';
 import validatePassword from '../../../utils/validatePassword';
+import { MdVisibility, MdVisibilityOff } from 'react-icons/md';
 
 interface LoginState {
   email: string;
@@ -25,7 +26,9 @@ const LoginForm: React.FC = () => {
     fieldErrors: {},
     loading: false,
   });
+
   const [success, setSuccess] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -146,7 +149,7 @@ const LoginForm: React.FC = () => {
               placeholder='Enter your email'
               value={loginState.email}
               onChange={handleInputChange}
-							disabled={loginState.loading}
+              disabled={loginState.loading}
             />
             {loginState.fieldErrors.email && (
               <p className='text-red-500 text-sm mt-1'>{loginState.fieldErrors.email}</p>
@@ -157,21 +160,29 @@ const LoginForm: React.FC = () => {
             <label htmlFor='password' className='text-md'>
               Password
             </label>
-            <input
-              className={`w-full p-2 focus:outline-none focus:ring-1 focus:ring-primary border border-solid rounded-md transition-colors duration-300 ease-in-out ${loginState.fieldErrors.password ? 'border-red-500' : success ? 'border-green-500' : 'border-gray-300'} ${success ? 'ring-green-400' : 'focus:ring-primary'} ${success ? 'shadow-[0_0_10px_rgba(34,197,94,0.5)]' : ''} ${loginState.loading ? 'bg-gray-200 cursor-not-allowed' : 'bg-white'}`}
-              name='password'
-              type='password'
-              placeholder='Enter your password'
-              value={loginState.password}
-              onChange={handleInputChange}
-							disabled={loginState.loading}
-            />
-            {loginState.fieldErrors.password && (
-              <p className='text-red-500 text-sm mt-1'>{loginState.fieldErrors.password}</p>
-            )}
+            <div className='relative'	>
+              <input
+                className={`w-full p-2 pr-12 focus:outline-none focus:ring-1 focus:ring-primary border border-solid rounded-md transition-colors duration-300 ease-in-out ${loginState.fieldErrors.password ? 'border-red-500' : success ? 'border-green-500' : 'border-gray-300'} ${success ? 'ring-green-400' : 'focus:ring-primary'} ${success ? 'shadow-[0_0_10px_rgba(34,197,94,0.5)]' : ''} ${loginState.loading ? 'bg-gray-200 cursor-not-allowed' : 'bg-white'}`}
+                name='password'
+                type={showPassword ? "text" : "password"}
+                placeholder='Enter your password'
+                value={loginState.password}
+                onChange={handleInputChange}
+                disabled={loginState.loading}
+              />
+							<button
+								type='button'
+								onClick={() => setShowPassword(!showPassword)}
+								className='absolute right-3 top-2 cursor-pointer'
+							>
+								{showPassword ? <MdVisibilityOff size={25} className='text-primary'/> : <MdVisibility size={25} className='text-primary' />}
+							</button>
+            </div>
+						{loginState.fieldErrors.password && (
+							<p className='text-red-500 text-sm mt-1'>{loginState.fieldErrors.password}</p>
+						)}
 
             {/* add change visibility button */}
-            {/* make fields darken when loading */}
           </div>
         </div>
 
@@ -183,7 +194,7 @@ const LoginForm: React.FC = () => {
               onChange={handleCheckBoxChange}
               name='rememberMe'
               className='accent-primary cursor-pointer'
-							disabled={loginState.loading}
+              disabled={loginState.loading}
             />
             <label htmlFor='remember-me' className='text-sm mx-2'>
               Remember Me
