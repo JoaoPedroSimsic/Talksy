@@ -182,7 +182,6 @@ const LoginForm: React.FC = () => {
 							<p className='text-red-500 text-sm mt-1'>{loginState.fieldErrors.password}</p>
 						)}
 
-            {/* add change visibility button */}
           </div>
         </div>
 
