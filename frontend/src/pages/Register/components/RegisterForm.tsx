@@ -136,7 +136,7 @@ const RegisterForm: React.FC = () => {
         <img src='/assets/logo.svg' className='scale-70' alt='background' />
         <span className='flex items-center justify-center ml-1 text-xl font-bold'>Talksy</span>
       </div>
-      <div className='flex flex-col space-y-5 items-center justify-center my-7'>
+      <div className='flex flex-col space-y-5 items-center justify-center lg:my-7'>
         <span className='text-3xl font-bold'>Create an Account</span>
         <span className='text-gray-500 text-sm'>
           Join the chat. It's free and easy to create an account.
@@ -224,6 +224,9 @@ const RegisterForm: React.FC = () => {
                 onChange={handleInputChange}
                 disabled={registerState.loading}
               />
+              {registerState.fieldErrors.password && (
+                <p className='text-red-500 text-sm mt-1'>{registerState.fieldErrors.password}</p>
+              )}
               <button
                 type='button'
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
