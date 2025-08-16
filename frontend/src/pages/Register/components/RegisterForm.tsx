@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import parseAxiosError from '../../../helpers/parseAxiosError';
 import { useNavigate } from 'react-router-dom';
@@ -20,7 +20,7 @@ interface RegisterState {
   loading: boolean;
 }
 
-const RegisterForm: React.FC = () => {
+const RegisterForm: React.FC = (): React.ReactNode => {
   const [registerState, setRegisterState] = useState<RegisterState>({
     username: '',
     email: '',
@@ -40,7 +40,7 @@ const RegisterForm: React.FC = () => {
   const backendUrl = 'http://localhost:3000';
   const registerEndpoint = `${backendUrl}/users`;
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
     setRegisterState((prev) => ({
       ...prev,

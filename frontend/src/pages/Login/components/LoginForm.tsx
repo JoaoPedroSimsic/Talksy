@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import parseAxiosError from '../../../helpers/parseAxiosError';
 import { useNavigate } from 'react-router-dom';
@@ -18,7 +18,7 @@ interface LoginState {
   loading: boolean;
 }
 
-const LoginForm: React.FC = () => {
+const LoginForm: React.FC = (): React.ReactNode => {
   const [loginState, setLoginState] = useState<LoginState>({
     email: '',
     password: '',
@@ -160,28 +160,31 @@ const LoginForm: React.FC = () => {
             <label htmlFor='password' className='text-md'>
               Password
             </label>
-            <div className='relative'	>
+            <div className='relative'>
               <input
                 className={`w-full p-2 pr-12 focus:outline-none focus:ring-1 focus:ring-primary border border-solid rounded-md transition-colors duration-300 ease-in-out ${loginState.fieldErrors.password ? 'border-red-500' : success ? 'border-green-500' : 'border-gray-300'} ${success ? 'ring-green-400' : 'focus:ring-primary'} ${success ? 'shadow-[0_0_10px_rgba(34,197,94,0.5)]' : ''} ${loginState.loading ? 'bg-gray-200 cursor-not-allowed' : 'bg-white'}`}
                 name='password'
-                type={showPassword ? "text" : "password"}
+                type={showPassword ? 'text' : 'password'}
                 placeholder='Enter your password'
                 value={loginState.password}
                 onChange={handleInputChange}
                 disabled={loginState.loading}
               />
-							<button
-								type='button'
-								onClick={() => setShowPassword(!showPassword)}
-								className='absolute right-3 top-2 cursor-pointer'
-							>
-								{showPassword ? <MdVisibilityOff size={25} className='text-primary'/> : <MdVisibility size={25} className='text-primary' />}
-							</button>
+              <button
+                type='button'
+                onClick={() => setShowPassword(!showPassword)}
+                className='absolute right-3 top-2 cursor-pointer'
+              >
+                {showPassword ? (
+                  <MdVisibilityOff size={25} className='text-primary' />
+                ) : (
+                  <MdVisibility size={25} className='text-primary' />
+                )}
+              </button>
             </div>
-						{loginState.fieldErrors.password && (
-							<p className='text-red-500 text-sm mt-1'>{loginState.fieldErrors.password}</p>
-						)}
-
+            {loginState.fieldErrors.password && (
+              <p className='text-red-500 text-sm mt-1'>{loginState.fieldErrors.password}</p>
+            )}
           </div>
         </div>
 

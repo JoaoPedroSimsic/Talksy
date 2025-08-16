@@ -1,6 +1,7 @@
+import React from "react";
 import LoginForm from "./components/LoginForm";
 
-const Login: React.FC = () => {
+const Login: React.FC = (): React.ReactNode => {
 	return (
 		<div className="flex w-full items-center justify-between h-screen">
 			<div className="bg-primary lg:bg-white relative w-full lg:w-1/2 h-screen flex items-center justify-center overflow-hidden">
