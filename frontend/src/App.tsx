@@ -1,26 +1,28 @@
-import RegisterPage from "./pages/Register/Register";
-import DashboardPage from "./pages/Dashboard/Dashboard";
+import React from 'react';
 
-import { Route, Routes } from "react-router-dom";
+import LoginRedirect from './pages/Login/LoginRedirect';
+import RegisterPage from './pages/Register/Register';
+import AppPage from './pages/App/App';
 
-import ProtectedRoutes from "./components/ProtectedRoutes";
-import LoginRedirect from "./pages/Login/LoginRedirect";
+import { Route, Routes } from 'react-router-dom';
 
-import "./style.css";
+import ProtectedRoutes from './components/ProtectedRoutes';
 
-function App() {
+import './style.css';
+
+const App: React.FC = (): React.ReactNode => {
 	return (
 		<Routes>
-			<Route path="/login" element={<LoginRedirect />} />
-			<Route path="/register" element={<RegisterPage />} />
+			<Route path='/login' element={<LoginRedirect />} />
+			<Route path='/register' element={<RegisterPage />} />
 
 			<Route element={<ProtectedRoutes />}>
-				<Route path="/" element={<DashboardPage />} />
+				<Route path='/' element={<AppPage />} />
 			</Route>
 
-			<Route path="*" element={<div>404 Page not found</div>} />
+			<Route path='*' element={<div>404 Page not found</div>} />
 		</Routes>
 	);
-}
+};
 
 export default App;
