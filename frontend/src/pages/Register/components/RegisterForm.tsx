@@ -37,7 +37,7 @@ const RegisterForm: React.FC = (): React.ReactNode => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const backendUrl = 'http://localhost:3000';
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const registerEndpoint = `${backendUrl}/users`;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {

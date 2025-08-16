@@ -33,7 +33,7 @@ const LoginForm: React.FC = (): React.ReactNode => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const backendUrl = 'http://localhost:3000';
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const loginEndpoint = `${backendUrl}/auth/login`;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
