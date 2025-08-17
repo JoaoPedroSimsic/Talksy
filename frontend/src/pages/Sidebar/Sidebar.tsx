@@ -39,9 +39,9 @@ const Sidebar: React.FC<SidebarProps> = ({ setPage, currentPage }): React.ReactN
 				</button>
 				<button
 					className={`flex flex-1 justify-center item-center`}
-					onClick={() => setPage("groups")}
+					onClick={() => setPage("profile")}
 				>
-					<FaRegUser size={fontSize - 4} className={`${highlightIcon("groups")}`} />
+					<FaRegUser size={fontSize - 4} className={`${highlightIcon("profile")}`} />
 				</button>
 				<button
 					className={`flex flex-1 justify-center item-center`}
