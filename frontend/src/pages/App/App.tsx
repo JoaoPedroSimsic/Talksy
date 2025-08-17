@@ -1,27 +1,30 @@
 import React, { useState } from 'react';
 
 import Sidebar from '../Sidebar/Sidebar';
-import DashboardPage from '../Dashboard/Dashboard';
+import HomePage from '../Home/Home';
+import SettingsPage from '../Settings/Settings';
 
 const App: React.FC = (): React.ReactNode => {
-	const [page, setPage] = useState('dashboard');
+	const [page, setPage] = useState('home');
 
 	const renderPage = (): React.ReactNode => {
 		switch (page) {
-			case "dashboard":
-				return <DashboardPage />;
+			case 'home':
+				return <HomePage />;
+			case 'settings':
+				return <SettingsPage />;			
 			default:
-				return <DashboardPage />;
+				return <HomePage />;
 		}
-	}
+	};
 
 	return (
-		<div className='flex h-screen'>
-			<Sidebar setPage={setPage} />
+		<div className='flex flex-col lg:flex-row h-screen w-screen bg-[radial-gradient(circle,rgba(86,86,237,0.5),white)]'>
+			<div className='flex content-center items-center lg:flex-col h-1/5 w-full lg:h-screen order-last lg:order-first'>
+				<Sidebar setPage={setPage} currentPage={page} />
+			</div>
 
-			<main className='flex'>
-				{renderPage()}
-			</main>
+			<main className='flex w-screen h-screen lg:h-screen'>{renderPage()}</main>
 		</div>
 	);
 };
