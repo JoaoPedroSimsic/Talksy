@@ -1,6 +1,7 @@
 import React, { useState, Dispatch, SetStateAction } from "react";
 import { FiMessageSquare, FiHome, FiSettings } from "react-icons/fi";
 import { GrGroup } from "react-icons/gr";
+import { FaRegUser } from "react-icons/fa6";
 
 interface SidebarProps {
 	setPage: Dispatch<SetStateAction<string>>;
@@ -38,9 +39,15 @@ const Sidebar: React.FC<SidebarProps> = ({ setPage, currentPage }): React.ReactN
 				</button>
 				<button
 					className={`flex flex-1 justify-center item-center`}
+					onClick={() => setPage("groups")}
+				>
+					<FaRegUser size={fontSize - 4} className={`${highlightIcon("groups")}`} />
+				</button>
+				<button
+					className={`flex flex-1 justify-center item-center`}
 					onClick={() => setPage("settings")}
 				>
-					<FiSettings size={fontSize} className={`${highlightIcon("settings")}`} />
+					<FiSettings size={fontSize - 2} className={`${highlightIcon("settings")}`} />
 				</button>
 			</div>
 		</aside >
