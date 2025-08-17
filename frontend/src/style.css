@@ -5,6 +5,8 @@
 @theme {
   --color-primary: #3838ec;
   --color-secondary: #5656ed;
+	--color-dark: #1c1c1c;
+	--color-bright: #fff;
 }
 
 body {
