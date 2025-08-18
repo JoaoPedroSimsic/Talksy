@@ -1,30 +1,41 @@
-import React from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
+
+import OptionCard from './components/OptionCard';
+import Modal from '../../components/Modal';
+
+import handleLogout from './utils/Logout';
 
 const Settings: React.FC = (): React.ReactNode => {
-	const handleLogout = async (): Promise<void> => {
-		const backendUrl = import.meta.env.VITE_BACKEND_URL;
-		const endpoint = `${backendUrl}/auth/logout`;
+	const [logoutModal, showLogoutModal] = useState(false);
 
-		try {
-			await axios.get(endpoint, { withCredentials: true });
-			window.location.reload();
-		} catch (err) {
-			console.error('Logout failed', err);
-		}
-	};
+	const settingsOptions = [
+		{ title: 'Change Email', description: 'Change your email' },
+		{ title: 'Change Password', description: 'Update your password' },
+		{
+			title: 'Logout',
+			description: 'Log out of your current account',
+			onClick: (): void => showLogoutModal(true),
+		},
+	];
 
 	return (
-		<div className='lg:flex'>
-			<button
-				onClick={handleLogout}
-				className='absolute top-5 left-5 cursor-pointer bg-red-500 text-white px-4 py-2 rounded'
-			>
-				Logout
-			</button>
-			<div className='flex-1 bg-red-500'>nav</div>
-			<div className='flex-2 bg-green-500'>chats</div>
-			<div className='flex-7 bg-blue-500'>messages</div>
+		<div className='flex flex-col items-center h-full w-full'>
+			{settingsOptions.map((opt, index) => (
+				<OptionCard
+					key={index}
+					title={opt.title}
+					description={opt.description}
+					onClick={opt.onClick}
+				/>
+			))}
+
+			<Modal
+				isOpen={logoutModal}
+				onClose={() => showLogoutModal(false)}
+				onConfirm={handleLogout}
+				title='Confirm Logout'
+				description='Are you sure you want to log out?'
+			/>
 		</div>
 	);
 };

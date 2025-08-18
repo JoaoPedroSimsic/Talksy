@@ -1,4 +1,4 @@
-import React, { useState, Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { FiMessageSquare, FiHome, FiSettings } from "react-icons/fi";
 import { GrGroup } from "react-icons/gr";
 import { FaRegUser } from "react-icons/fa6";
@@ -8,13 +8,13 @@ interface SidebarProps {
 	currentPage: string;
 }
 
-const fontSize = 28;
+const fontSize = 23;
 // const buttonClass = `flex flex-1 justify-center item-center`
 
 const Sidebar: React.FC<SidebarProps> = ({ setPage, currentPage }): React.ReactNode => {
 
 	const highlightIcon = (page: string): string => 
-		page === currentPage ? "text-primary" : "text-dark";
+		page === currentPage ? "text-light-primary" : "text-light-dark";
 
 	return (
 		<aside className={`flex justify-center items-center w-full h-full`}>

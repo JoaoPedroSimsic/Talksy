@@ -2,12 +2,14 @@
 
 @import 'tailwindcss';
 
-@theme {
-	--color-primary: #3838ec;
-	--color-secondary: #5656ed;
-	--color-dark: #1c1c1c;
-	--color-bright: #fff;
-}
+@theme { 
+	--color-primary: #3838ec; 
+	--color-light-primary: rgba(56, 56, 236, 0.8);
+	--color-secondary: #5656ed; 
+	--color-dark: #1c1c1c; 
+	--color-light-dark: rgba(28, 28, 28, 0.8); 
+	--color-bright: #fff; 
+} 
 
 @layer base {
 	* {
