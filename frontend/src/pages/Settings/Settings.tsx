@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import OptionCard from './components/OptionCard';
-import Modal from '../../components/Modal';
+import LogoutModal from './components/LogoutModal';
 
 import handleLogout from './utils/Logout';
 
@@ -29,13 +29,8 @@ const Settings: React.FC = (): React.ReactNode => {
 				/>
 			))}
 
-			<Modal
-				isOpen={logoutModal}
-				onClose={() => showLogoutModal(false)}
-				onConfirm={handleLogout}
-				title='Confirm Logout'
-				description='Are you sure you want to log out?'
-			/>
+			{logoutModal && <LogoutModal />}	
+
 		</div>
 	);
 };
