@@ -11,6 +11,6 @@ router.get('/check', authMiddleware, (req: AuthRequest, res: Response) => {
 	res.status(200).json({ user: req.userId });
 });
 router.put('/email', authMiddleware, AuthController.changeEmail);
-router.put('password', authMiddleware, AuthController.changePassword);
+router.put('/password', authMiddleware, AuthController.changePassword);
 
 export default router;
