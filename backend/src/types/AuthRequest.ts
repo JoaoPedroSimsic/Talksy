@@ -1,7 +1,9 @@
 import { Request } from 'express';
 
-export interface AuthRequest extends Request {
+interface AuthRequest extends Request {
 	userId?: number;
 	userEmail?: string;
 	skipAuth?: boolean;
 }
+
+export default AuthRequest;

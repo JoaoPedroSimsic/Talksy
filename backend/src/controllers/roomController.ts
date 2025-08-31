@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import { AuthRequest } from '../types/AuthRequest';
+import AuthRequest from '../types/AuthRequest';
 import RoomService from '../services/RoomService';
 
 import handleError from '../utils/handleError';
@@ -38,7 +38,7 @@ class RoomController {
 		}
 	}
 
-	public async getAllRooms(req: AuthRequest, res: Response): Promise<void> {
+	public async getAllRooms(_req: AuthRequest, res: Response): Promise<void> {
 		try {
 			const rooms = await RoomService.getAllRooms();
 			res.status(200).json(rooms);

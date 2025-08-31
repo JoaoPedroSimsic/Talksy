@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { AuthRequest } from '../types/AuthRequest';
+import AuthRequest from '../types/AuthRequest';
 import UserService from '../services/UserService';
 import validator from 'validator';
 import handleError from '../utils/handleError';
