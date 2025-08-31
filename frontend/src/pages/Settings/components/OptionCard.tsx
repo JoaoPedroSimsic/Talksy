@@ -3,10 +3,8 @@ import { IoIosArrowForward } from 'react-icons/io';
 
 interface OptionCardProps {
 	title: string;
-	description?: string;
-	onClick?: () => void;
-	buttonText?: string;
-	important?: boolean;
+	description: string;
+	onClick: () => void;
 }
 
 const OptionCard: React.FC<OptionCardProps> = ({ title, description, onClick }) => {
