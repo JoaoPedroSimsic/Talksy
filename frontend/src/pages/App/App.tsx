@@ -20,7 +20,7 @@ const App: React.FC = (): React.ReactNode => {
 	};
 
 	return (
-		<div className='flex flex-col lg:flex-row h-screen w-screen bg-[radial-gradient(circle,rgba(86,86,237,0.5),white)]'>
+		<div className='flex flex-col lg:flex-row h-screen w-screen bg-[radial-gradient(circle,rgba(86,86,237,0.5),rgba(200,200,237,0.5))]'>
 			<header className='flex justify-center items-center lg:hidden h-1/10 w-screen'>
 				<Header page={page}/>
 			</header>
