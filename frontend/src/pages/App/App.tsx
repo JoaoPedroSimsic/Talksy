@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Sidebar from '../Sidebar/Sidebar';
 import Header from '../../components/Header';
 import HomePage from '../Home/Home';
+import ProfilePage from '../Profile/Profile';
 import SettingsPage from '../Settings/Settings';
 
 const App: React.FC = (): React.ReactNode => {
@@ -14,6 +15,8 @@ const App: React.FC = (): React.ReactNode => {
 				return <HomePage />;
 			case 'settings':
 				return <SettingsPage />;
+			case 'profile':
+				return <ProfilePage />	
 			default:
 				return <HomePage />;
 		}
