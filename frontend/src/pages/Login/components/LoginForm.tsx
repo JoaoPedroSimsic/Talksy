@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import parseAxiosError from '../../../helpers/parseAxiosError';
 import { useNavigate } from 'react-router-dom';
+
+import PasswordInput from '../../../components/PasswordInput';
 import { useAuth } from '../../../context/useAuth';
 import validateEmail from '../../../utils/validateEmail';
 import validatePassword from '../../../utils/validatePassword';
+
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md';
 
 interface LoginState {
@@ -28,7 +31,6 @@ const LoginForm: React.FC = (): React.ReactNode => {
 	});
 
 	const [success, setSuccess] = useState(false);
-	const [showPassword, setShowPassword] = useState(false);
 
 	const { login } = useAuth();
 	const navigate = useNavigate();
@@ -157,34 +159,15 @@ const LoginForm: React.FC = (): React.ReactNode => {
 					</div>
 
 					<div>
-						<label htmlFor='password' className='text-md'>
-							Password
-						</label>
-						<div className='relative'>
-							<input
-								className={`w-full p-2 pr-12 focus:outline-none focus:ring-1 focus:ring-primary border border-solid rounded-md transition-colors duration-300 ease-in-out ${loginState.fieldErrors.password ? 'border-red-500' : success ? 'border-green-500' : 'border-gray-300'} ${success ? 'ring-green-400' : 'focus:ring-primary'} ${success ? 'shadow-[0_0_10px_rgba(34,197,94,0.5)]' : ''} ${loginState.loading ? 'bg-gray-200 cursor-not-allowed' : 'bg-white'}`}
-								name='password'
-								type={showPassword ? 'text' : 'password'}
-								placeholder='Enter your password'
-								value={loginState.password}
-								onChange={handleInputChange}
-								disabled={loginState.loading}
-							/>
-							<button
-								type='button'
-								onClick={() => setShowPassword(!showPassword)}
-								className='absolute right-3 top-2 cursor-pointer'
-							>
-								{showPassword ? (
-									<MdVisibilityOff size={25} className='text-primary' />
-								) : (
-									<MdVisibility size={25} className='text-primary' />
-								)}
-							</button>
-						</div>
-						{loginState.fieldErrors.password && (
-							<p className='text-red-500 text-sm mt-1'>{loginState.fieldErrors.password}</p>
-						)}
+						<PasswordInput
+							name='password'
+							label='Password'
+							placeholder='Enter your password'
+							value={loginState.password}
+							onChange={handleInputChange}
+							disabled={loginState.loading}
+							error={loginState.fieldErrors.password}
+						/>
 					</div>
 				</div>
 
