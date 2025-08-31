@@ -20,7 +20,7 @@ const Header: React.FC<HeaderProps> = ({ page }): React.ReactNode => {
 			<button className='bg-bright flex justify-center items-center h-10 w-10 rounded-full'>
 				<FaArrowLeft size={20} className='text-dark' />
 			</button>
-			<span className='bg-bright flex justify-center items-center h-10 w-auto px-5 rounded-full text-sm'>{pageTitles[page] ?? page}</span>
+			<span className='bg-bright flex justify-center items-center h-10 w-auto px-5 rounded-2xl text-sm'>{pageTitles[page] ?? page}</span>
 			<button className='bg-bright flex justify-center items-center h-10 w-10 rounded-full'>
 				<BsThreeDots size={20} className='text-dark' />
 			</button>
