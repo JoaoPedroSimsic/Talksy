@@ -19,6 +19,7 @@ model User {
 	username		String
 	email				String 		@unique
 	password		String
+	photo				String?
 	rooms 			Room[]		@relation("UserRooms")
 	messages 		Message[]
 }
@@ -38,7 +39,7 @@ model Message {
 
 model Room {
 	id					Int				@id @default(autoincrement())
-	name				String		@unique
+	name				String		
 	messages		Message[]
 	members 		User[]   	@relation("UserRooms")
 }
