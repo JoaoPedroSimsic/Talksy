@@ -17,7 +17,7 @@ class UserController {
 
   public async getUserById(req: AuthRequest, res: Response): Promise<void> {
     try {
-      const userId = Number(req.params.id);
+      const { userId } = req;
 
       if (!userId || isNaN(Number(userId))) {
         res.status(400).json({ error: "Invalid user ID" });
@@ -34,6 +34,28 @@ class UserController {
       res.status(200).json(user);
     } catch (err) {
       handleError(err, res, "Error fetching user");
+    }
+  }
+
+  public async currentUser(req: AuthRequest, res: Response): Promise<void> {
+    try {
+      const { userId } = req;
+
+      if (!userId) {
+        res.status(401).json({ error: "Unauthorized" });
+        return;
+      }
+
+      const user = await UserService.getUserById(Number(userId));
+
+      if (!user) {
+        res.status(404).json({ error: "User not found" });
+        return;
+      }
+
+      res.status(200).json(user);
+    } catch (err) {
+      handleError(err, res, "Error fetching current user");
     }
   }
 
@@ -84,16 +106,10 @@ class UserController {
 
     try {
       const { userId } = req;
-      const { id } = req.params;
       const { username, email, password } = req.body;
 
       if (!userId) {
         res.status(401).json({ error: "Unauthorized" });
-        return;
-      }
-
-      if (Number(id) !== userId) {
-        res.status(403).json({ error: "You can only update your own account" });
         return;
       }
 
@@ -115,7 +131,10 @@ class UserController {
         Object.entries(data).filter(([_, value]) => value !== undefined),
       );
 
-      const updatedUser = await UserService.updateUser(Number(id), cleanedData);
+      const updatedUser = await UserService.updateUser(
+        Number(userId),
+        cleanedData,
+      );
 
       res
         .status(200)
@@ -128,7 +147,6 @@ class UserController {
   public async deleteUser(req: AuthRequest, res: Response): Promise<void> {
     try {
       const { userId } = req;
-      const { id } = req.params;
       const { password } = req.body;
 
       if (!userId) {
@@ -136,12 +154,7 @@ class UserController {
         return;
       }
 
-      if (Number(id) !== userId) {
-        res.status(403).json({ error: "You can only delete your own account" });
-        return;
-      }
-
-      const user = await UserService.getUserById(Number(id));
+      const user = await UserService.getUserById(Number(userId));
 
       if (!user) {
         res.status(404).json({ error: "User not found" });
@@ -153,7 +166,7 @@ class UserController {
         return;
       }
 
-      await UserService.deleteUser(Number(id));
+      await UserService.deleteUser(Number(userId));
 
       res.status(200).json({ message: "User deleted successfully" });
     } catch (err) {
