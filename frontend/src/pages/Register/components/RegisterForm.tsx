@@ -4,6 +4,7 @@ import parseAxiosError from '../../../helpers/parseAxiosError';
 import { useNavigate } from 'react-router-dom';
 
 import PasswordInput from '../../../components/PasswordInput';
+import Logo from '../../../components/Logo';
 import { useAuth } from '../../../context/useAuth';
 import validateEmail from '../../../utils/validateEmail';
 import validatePassword from '../../../utils/validatePassword';
@@ -132,7 +133,7 @@ const RegisterForm: React.FC = (): React.ReactNode => {
 	return (
 		<div className='bg-[var(--bg)] relative flex flex-col items-center justify-center max-h-[95%] desktop:h-auto w-4/6 py-10 rounded-xl'>
 			<div className='flex desktop:hidden absolute top-7 left-7 h-10 w-40'>
-				<img src='/assets/logo.svg' className='scale-70' alt='background' />
+				<Logo />
 				<span className='flex items-center justify-center ml-1 text-[var(--text)] text-xl font-bold'>Talksy</span>
 			</div>
 			<div className='flex flex-col space-y-5 items-center justify-center desktop:my-3'>
