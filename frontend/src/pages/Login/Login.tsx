@@ -10,9 +10,6 @@ const Login: React.FC = (): React.ReactNode => {
 			<div className='bg-[var(--bg-dark)] desktop:bg-[var(--bg-dark)] relative w-full desktop:w-1/2 h-screen flex items-center justify-center overflow-hidden'>
 				<div className='hidden z-1 desktop:flex absolute top-10 left-10 h-10 w-40'>
 					<Logo />
-					<span className='flex items-center justify-center ml-1 text-[var(--text)] text-xl font-bold'>
-						Talksy
-					</span>
 				</div>
 				<LoginForm />
 			</div>
