@@ -87,7 +87,7 @@ const FakeChat: React.FC<{ maxMessages?: number; minDelay?: number; maxDelay?: n
 			setMessages((prev) => {
 				let newMessage: ChatMessage;
 
-				if (Math.random() < 0.2) {
+				if (Math.random() > 0.8) {
 					const randomLangMessage = messagesList[Math.floor(Math.random() * messagesList.length)];
 					const lang = randomLangMessage.language;
 					const names = namesByLanguage[lang];
