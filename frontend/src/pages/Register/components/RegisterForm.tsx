@@ -130,12 +130,12 @@ const RegisterForm: React.FC = (): React.ReactNode => {
 	};
 
 	return (
-		<div className='bg-[var(--bg)] relative flex flex-col items-center justify-center max-h-[95%] lg:h-auto w-4/6 py-10 rounded-xl'>
-			<div className='flex lg:hidden absolute top-7 left-7 h-10 w-40'>
+		<div className='bg-[var(--bg)] relative flex flex-col items-center justify-center max-h-[95%] desktop:h-auto w-4/6 py-10 rounded-xl'>
+			<div className='flex desktop:hidden absolute top-7 left-7 h-10 w-40'>
 				<img src='/assets/logo.svg' className='scale-70' alt='background' />
 				<span className='flex items-center justify-center ml-1 text-[var(--text)] text-xl font-bold'>Talksy</span>
 			</div>
-			<div className='flex flex-col space-y-5 items-center justify-center lg:my-3'>
+			<div className='flex flex-col space-y-5 items-center justify-center desktop:my-3'>
 				<span className='text-[var(--text)] text-3xl font-bold'>Create an Account</span>
 				<span className='text-[var(--text-muted)] text-sm'>
 					Join the chat. It's free and easy to create an account.
