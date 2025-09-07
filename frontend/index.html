@@ -10,6 +10,16 @@
 		rel="stylesheet" />
 </head>
 
+<script>
+	(function () {
+		const theme = localStorage.getItem('theme');
+
+		if (theme) {
+			document.documentElement.setAttribute('data-theme', theme);
+		}
+	})();
+</script>
+
 <body>
 	<div id="root"></div>
 	<script type="module" src="./src/main.tsx"></script>

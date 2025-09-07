@@ -2,14 +2,22 @@
 
 @import 'tailwindcss';
 
-@theme { 
-	--color-primary: #3838ec; 
-	--color-light-primary: rgba(56, 56, 236, 0.8);
-	--color-secondary: #5656ed; 
-	--color-dark: #1c1c1c; 
-	--color-light-dark: rgba(28, 28, 28, 0.8); 
-	--color-bright: #fff; 
-} 
+:root {
+	--bg-dark: oklch(0.92 0 138);
+	--bg: oklch(0.96 0 138);
+	--bg-light: oklch(1 0 138);
+	--text: oklch(0.15 0 138);
+	--text-muted: oklch(0.4 0 138);
+	--highlight: oklch(1 0 138);
+	--border: oklch(0.6 0 138);
+	--border-muted: oklch(0.7 0 138);
+	--primary: oklch(0.4 0.1 138);
+	--secondary: oklch(0.5 0.1 138);
+	--danger: oklch(0.5 0.05 30);
+	--warning: oklch(0.5 0.05 100);
+	--success: oklch(0.5 0.05 160);
+	--info: oklch(0.5 0.05 260);
+}
 
 @layer base {
 	* {
@@ -19,4 +27,21 @@
 
 body {
 	font-family: 'Rubik', sans-serif;
+}
+
+[data-theme='dark'] {
+	--bg-dark: oklch(0.1 0 138);
+	--bg: oklch(0.15 0 138);
+	--bg-light: oklch(0.2 0 138);
+	--text: oklch(0.96 0 138);
+	--text-muted: oklch(0.76 0 138);
+	--highlight: oklch(0.5 0 138);
+	--border: oklch(0.4 0 138);
+	--border-muted: oklch(0.3 0 138);
+	--primary: oklch(0.76 0.1 138);
+	--secondary: oklch(0.86 0.1 138);
+	--danger: oklch(0.7 0.05 30);
+	--warning: oklch(0.7 0.05 100);
+	--success: oklch(0.7 0.05 160);
+	--info: oklch(0.7 0.05 260);
 }
