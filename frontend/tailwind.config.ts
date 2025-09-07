@@ -18,9 +18,6 @@ export default {
 			fontFamily: {
 				sans: ['Rubik', 'sans-serif'],
 			},
-			screens: {
-				xs: { max: '500px' },
-			},
 		},
 	},
 	plugins: [],

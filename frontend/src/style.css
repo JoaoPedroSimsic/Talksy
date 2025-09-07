@@ -2,6 +2,11 @@
 
 @import 'tailwindcss';
 
+@theme {
+	--breakpoint-mobile: initial;
+	--breakpoint-desktop: 1280px;
+}
+
 :root {
 	--bg-dark: oklch(0.92 0 138);
 	--bg: oklch(0.96 0 138);
