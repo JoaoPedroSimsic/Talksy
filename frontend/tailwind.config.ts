@@ -7,13 +7,12 @@ export default {
 		'./components/**/*.{js,ts,jsx,tsx,mdx}',
 	],
 
-	darkMode: 'class',
 	theme: {
 		extend: {
 			colors: {
 				primary: '#3838ec',
 				secondary: '#5656ed',
-				dark: '#1c1c1c',
+				// dark: '#1c1c1c',
 				bright: '#fff',
 			},
 			fontFamily: {
