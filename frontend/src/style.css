@@ -4,6 +4,8 @@
 
 @theme {
 	--breakpoint-mobile: initial;
+	--breakpoint-tablet: 640px;
+	--breakpoint-laptop: 940px;
 	--breakpoint-desktop: 1280px;
 }
 
