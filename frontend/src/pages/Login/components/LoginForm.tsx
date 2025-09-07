@@ -123,7 +123,7 @@ const LoginForm: React.FC = (): React.ReactNode => {
 	};
 
 	return (
-		<div className='bg-[var(--bg)] relative flex flex-col items-center justify-center w-3/4 py-20 rounded-xl'>
+		<div className='bg-[var(--bg)] relative flex flex-col items-center justify-center w-4/6  py-10 rounded-xl'>
 			<div className='flex lg:hidden absolute top-7 left-7 h-10 w-40'>
 				<Logo />
 				<span className='flex items-center text-[var(--text)] justify-center ml-1 text-xl font-bold'>
