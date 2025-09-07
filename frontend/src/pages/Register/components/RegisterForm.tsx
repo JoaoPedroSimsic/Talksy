@@ -130,14 +130,14 @@ const RegisterForm: React.FC = (): React.ReactNode => {
 	};
 
 	return (
-		<div className='bg-white relative flex flex-col items-center justify-center max-h-[95%] lg:h-auto w-3/4 py-20 rounded-xl'>
+		<div className='bg-[var(--bg)] relative flex flex-col items-center justify-center max-h-[95%] lg:h-auto w-4/6 py-10 rounded-xl'>
 			<div className='flex lg:hidden absolute top-7 left-7 h-10 w-40'>
 				<img src='/assets/logo.svg' className='scale-70' alt='background' />
-				<span className='flex items-center justify-center ml-1 text-xl font-bold'>Talksy</span>
+				<span className='flex items-center justify-center ml-1 text-[var(--text)] text-xl font-bold'>Talksy</span>
 			</div>
-			<div className='flex flex-col space-y-5 items-center justify-center lg:my-7'>
-				<span className='text-3xl font-bold'>Create an Account</span>
-				<span className='text-gray-500 text-sm'>
+			<div className='flex flex-col space-y-5 items-center justify-center lg:my-3'>
+				<span className='text-[var(--text)] text-3xl font-bold'>Create an Account</span>
+				<span className='text-[var(--text-muted)] text-sm'>
 					Join the chat. It's free and easy to create an account.
 				</span>
 			</div>
@@ -147,27 +147,27 @@ const RegisterForm: React.FC = (): React.ReactNode => {
 			>
 				<div className='w-full'>
 					<div className='mb-5'>
-						<label htmlFor='username' className='text-md'>
+						<label htmlFor='username' className='text-md text-[var(--text)] block mb-1'>
 							Username
 						</label>
 						<input
-							className={`w-full p-2 focus:outline-none focus:ring-1 focus:ring-primary border border-solid rounded-md transition-colors duration-300 ease-in-out ${registerState.fieldErrors.email ? 'border-red-500' : success ? 'border-green-500' : 'border-gray-300'} ${success ? 'ring-green-400' : 'focus:ring-primary'} ${success ? 'shadow-[0_0_10px_rgba(34,197,94,0.5)]' : ''} ${registerState.loading ? 'bg-gray-200 cursor-not-allowed' : 'bg-white'}`}
+							className={`w-full p-2 focus:outline-none focus:ring-1 text-[var(--text)] focus:ring-[var(--primary)] border border-solid rounded-md transition-colors duration-300 ease-in-out ${registerState.fieldErrors.username ? 'border-[var(--danger)]' : success ? 'border-[var(--success)]' : 'border-[var(--border)]'} ${registerState.loading ? 'bg-[var(--bg-dark)] cursor-not-allowed' : 'bg-[var(--bg)]'}`}
 							name='username'
 							type='text'
-							placeholder='Enter your email'
+							placeholder='Enter your username'
 							value={registerState.username}
 							onChange={handleInputChange}
 						/>
 						{registerState.fieldErrors.username && (
-							<p className='text-red-500 text-sm mt-1'>{registerState.fieldErrors.username}</p>
+							<p className='text-[var(--danger)] text-sm mt-1'>{registerState.fieldErrors.username}</p>
 						)}
 					</div>
 					<div className='mb-5'>
-						<label htmlFor='email' className='text-md'>
+						<label htmlFor='email' className='text-md text-[var(--text)] block mb-1'>
 							E-mail
 						</label>
 						<input
-							className={`w-full p-2 focus:outline-none focus:ring-1 focus:ring-primary border border-solid rounded-md transition-colors duration-300 ease-in-out ${registerState.fieldErrors.email ? 'border-red-500' : success ? 'border-green-500' : 'border-gray-300'} ${success ? 'ring-green-400' : 'focus:ring-primary'} ${success ? 'shadow-[0_0_10px_rgba(34,197,94,0.5)]' : ''} ${registerState.loading ? 'bg-gray-200 cursor-not-allowed' : 'bg-white'}`}
+							className={`w-full p-2 focus:outline-none focus:ring-1 text-[var(--text)] focus:ring-[var(--primary)] border border-solid rounded-md transition-colors duration-300 ease-in-out ${registerState.fieldErrors.email ? 'border-[var(--danger)]' : success ? 'border-[var(--success)]' : 'border-[var(--border)]'} ${registerState.loading ? 'bg-[var(--bg-dark)] cursor-not-allowed' : 'bg-[var(--bg)]'}`}
 							name='email'
 							type='text'
 							placeholder='Enter your email'
@@ -176,7 +176,7 @@ const RegisterForm: React.FC = (): React.ReactNode => {
 							required
 						/>
 						{registerState.fieldErrors.email && (
-							<p className='text-red-500 text-sm mt-1'>{registerState.fieldErrors.email}</p>
+							<p className='text-[var(--danger)] text-sm mt-1'>{registerState.fieldErrors.email}</p>
 						)}
 					</div>
 					<div className='mb-5'>
@@ -204,24 +204,20 @@ const RegisterForm: React.FC = (): React.ReactNode => {
 
 					<button
 						type='submit'
-						className={`w-full my-3 p-2 rounded-md text-white cursor-pointer transition-colors duration-300 ease-in-out 
-						${success
-								? 'bg-green-500 hover:bg-green-600 shadow-[0_0_10px_rgba(34,197,94,0.3)]'
-								: 'bg-primary hover:bg-secondary'
-							}`}
+						className={`w-full my-3 p-2 rounded-md text-[var(--bg)] cursor-pointer transition-colors duration-300 ease-in-out ${success ? 'bg-[var(--success)] hover:bg-[var(--success-dark)] shadow-[0_0_10px_rgba(34,197,94,0.3)]' : 'bg-[var(--primary)] hover:bg-[var(--secondary)]'}`}
 						disabled={registerState.loading}
 					>
 						{registerState.loading ? 'Logging in' : success ? 'Success' : 'Submit'}
 					</button>
 				</div>
 
-				<div className='bg-gray-400 h-px w-3/4 my-6'></div>
+				<div className='bg-[var(--border)] h-px w-3/4 my-6'></div>
 
 				<div className='flex items-center justify-center my-2 w-full'>
-					<span className='text-sm'>Already Have An Account?</span>
+					<span className='text-[var(--text)] text-sm'>Already Have An Account?</span>
 					<a
 						onClick={handleSignIn}
-						className='text-primary mx-1 text-sm cursor-pointer hover:text-secondary'
+						className='text-[var(--primary)] mx-1 text-sm cursor-pointer hover:text-[var(--secondary)]'
 					>
 						Sign In.
 					</a>
