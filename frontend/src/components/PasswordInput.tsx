@@ -20,7 +20,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
 	return (
 		<div className='mb-5'>
 			{label && <label className='text-[var(--text)] text-md block mb-1'>{label}</label>}
-			<div className='relative'>
+			<div className='relative flex items-center'>
 				<input
 					{...props}
 					type={showPassword ? 'text' : 'password'}
@@ -31,7 +31,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
 				<button
 					type='button'
 					onClick={() => setShowPassword(!showPassword)}
-					className='absolute right-3 top-2 cursor-pointer'
+					className='absolute right-2 flex items-center justify-center cursor-pointer hover:bg-[var(--bg-dark)] p-1 rounded-full transition'
 				>
 					{showPassword ? (
 						<MdOutlineVisibilityOff size={25} className='text-[var(--primary)]' />
