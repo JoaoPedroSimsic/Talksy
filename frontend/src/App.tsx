@@ -1,7 +1,8 @@
 import React from 'react';
 
-import LoginRedirect from './pages/Login/LoginRedirect';
-import RegisterPage from './pages/Register/Register';
+// import LoginRedirect from './pages/Login/LoginRedirect';
+import LoginRedirect from './pages/Auth/Login/LoginRedirect';
+import RegisterPage from './pages/Auth/Register/Register';
 import AppPage from './pages/App/App';
 
 import { Route, Routes } from 'react-router-dom';

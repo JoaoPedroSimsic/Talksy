@@ -1,23 +1,27 @@
 import React from 'react';
-
 import FakeChat from '../../components/FakeChat';
-import LoginForm from './components/LoginForm';
 import Logo from '../../components/Logo';
 
-const Login: React.FC = (): React.ReactNode => {
+interface AuthLayoutProps {
+	children: React.ReactNode;
+}
+
+const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
 	return (
 		<div className='flex w-full items-center justify-between h-screen'>
+
 			<div className='bg-[var(--bg-dark)] desktop:bg-[var(--bg-dark)] relative w-full desktop:w-1/2 h-screen flex items-center justify-center overflow-hidden'>
-				<div className='hidden z-1 desktop:flex absolute top-10 left-10 h-10 w-40'>
+				<div className='hidden desktop:flex z-1 absolute top-7 left-7 h-10 w-40'>
 					<Logo />
 				</div>
-				<LoginForm />
+				{children}
 			</div>
-			<div className='relative h-full w-1/2 bg-[var(--bg)] hidden desktop:flex flex-col justify-end overflow-hidden shadow-lg'>
+
+			<div className='relative hidden desktop:flex h-full w-1/2 bg-[var(--bg)] flex-col justify-end overflow-hidden shadow-lg'>
 				<FakeChat />
 			</div>
 		</div>
 	);
 };
 
-export default Login;
+export default AuthLayout;

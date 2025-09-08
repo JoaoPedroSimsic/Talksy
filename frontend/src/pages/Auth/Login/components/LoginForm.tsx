@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import parseAxiosError from '../../../helpers/parseAxiosError';
+import parseAxiosError from '../../../../helpers/parseAxiosError';
 import { useNavigate } from 'react-router-dom';
 
-import PasswordInput from '../../../components/PasswordInput';
-import Logo from '../../../components/Logo';
-import { useAuth } from '../../../context/useAuth';
-import validateEmail from '../../../utils/validateEmail';
-import validatePassword from '../../../utils/validatePassword';
+import PasswordInput from '../../../../components/PasswordInput';
+import Logo from '../../../../components/Logo';
+import { useAuth } from '../../../../context/useAuth';
+import validateEmail from '../../../../utils/validateEmail';
+import validatePassword from '../../../../utils/validatePassword';
 
 interface LoginState {
 	email: string;
