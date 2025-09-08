@@ -197,13 +197,13 @@ const LoginForm: React.FC = (): React.ReactNode => {
 
 				<button
 					type='submit'
-					className={`w-full my-3 p-2 bg-[var(--primary)] hover:bg-[var(--secondary)] rounded-md text-[var(--bg)] cursor-pointer`}
+					className={`w-full my-3 p-2 bg-[var(--primary)] hover:bg-[var(--secondary)] rounded-md text-[var(--bg)] cursor-pointer active:scale-99`}
 					disabled={loginState.loading}
 				>
 					{loginState.loading ? 'Logging in' : success ? 'Success' : 'Submit'}
 				</button>
 
-				<div className='bg-[var(--bg-dark)] h-px w-3/4 my-6'></div>
+				<div className='bg-[var(--border)] h-px w-3/4 my-6'></div>
 
 				<div className='flex items-center justify-center my-2 w-full'>
 					<span className='text-[var(--text)] text-sm'>Don't Have An Account?</span>

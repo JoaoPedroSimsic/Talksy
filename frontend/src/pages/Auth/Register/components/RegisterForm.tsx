@@ -206,7 +206,7 @@ const RegisterForm: React.FC = (): React.ReactNode => {
 
 					<button
 						type='submit'
-						className={`w-full my-3 p-2 rounded-md text-[var(--bg)] cursor-pointer transition-colors duration-300 ease-in-out ${success ? 'bg-[var(--success)] hover:bg-[var(--success-dark)] shadow-[0_0_10px_rgba(34,197,94,0.3)]' : 'bg-[var(--primary)] hover:bg-[var(--secondary)]'}`}
+						className={`w-full my-3 p-2 rounded-md text-[var(--bg)] cursor-pointer transition-colors duration-300 ease-in-out ${success ? 'bg-[var(--success)] hover:bg-[var(--success-dark)] shadow-[0_0_10px_rgba(34,197,94,0.3)]' : 'bg-[var(--primary)] hover:bg-[var(--secondary)] active:scale-99'}`}
 						disabled={registerState.loading}
 					>
 						{registerState.loading ? 'Logging in' : success ? 'Success' : 'Submit'}
