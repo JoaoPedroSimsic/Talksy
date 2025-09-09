@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import Sidebar from '../Sidebar/Sidebar';
-import Header from '../../components/Header';
+import Header from '../../components/Header/Header';
 import HomePage from '../Home/Home';
 import ProfilePage from '../Profile/Profile';
 import SettingsPage from '../Settings/Settings';
@@ -16,23 +16,23 @@ const App: React.FC = (): React.ReactNode => {
 			case 'settings':
 				return <SettingsPage />;
 			case 'profile':
-				return <ProfilePage />	
+				return <ProfilePage />;
 			default:
 				return <HomePage />;
 		}
 	};
 
 	return (
-		<div className='flex flex-col lg:flex-row h-screen w-screen bg-[radial-gradient(circle,rgba(86,86,237,0.5),rgba(200,200,237,0.5))]'>
-			<header className='flex justify-center items-center lg:hidden h-1/10 w-screen'>
-				<Header page={page}/>
+		<div className='flex flex-col desktop:flex-row h-screen w-screen bg-[var(--bg-dark)]'>
+			<header className='flex justify-center items-center desktop:hidden h-1/10 w-screen'>
+				<Header page={page} />
 			</header>
 
-			<div className='flex justify-center items-center lg:flex-col h-1/5 w-full lg:h-screen order-last lg:order-first'>
+			<div className='flex justify-center items-center desktop:flex-col h-1/12 w-screen desktop:h-screen order-last desktop:order-first'>
 				<Sidebar setPage={setPage} currentPage={page} />
 			</div>
 
-			<main className='flex w-screen h-screen lg:h-screen'>{renderPage()}</main>
+			<main className='flex w-screen h-screen desktop:h-screen'>{renderPage()}</main>
 		</div>
 	);
 };
