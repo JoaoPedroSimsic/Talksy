@@ -1,11 +1,11 @@
+import 'dotenv/config';
+
 import app from './app';
 import http from 'http';
 import { Server } from 'socket.io';
 
 import socketAuth from './middlewares/authSocket';
 import registerHandleChat from './webSocket/handleChat';
-
-import 'dotenv/config';
 
 const PORT = process.env.PORT;
 
