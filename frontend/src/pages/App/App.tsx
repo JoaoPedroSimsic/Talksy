@@ -23,10 +23,12 @@ const App: React.FC = (): React.ReactNode => {
 	};
 
 	return (
-		<div className='flex flex-col desktop:flex-row h-screen w-screen bg-[var(--bg-dark)]'>
-			<header className='flex justify-center items-center desktop:hidden h-1/10 w-screen'>
-				<Header page={page} />
-			</header>
+		<div className='flex flex-col desktop:flex-row h-screen w-screen bg-[var(--bg)]'>
+			{page !== 'settings' && (
+				<header className='flex justify-center items-center desktop:hidden h-1/10 w-screen'>
+					<Header page={page} />
+				</header>
+			)}
 
 			<div className='flex justify-center items-center desktop:flex-col h-1/12 w-screen desktop:h-screen order-last desktop:order-first'>
 				<Sidebar setPage={setPage} currentPage={page} />
