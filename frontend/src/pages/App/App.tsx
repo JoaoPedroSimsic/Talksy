@@ -30,7 +30,7 @@ const App: React.FC = (): React.ReactNode => {
 				</header>
 			)}
 
-			<div className='flex justify-center items-center desktop:flex-col h-1/12 w-screen desktop:h-screen order-last desktop:order-first'>
+			<div className='flex justify-center items-center desktop:flex-col h-1/12 w-screen desktop:h-screen order-last desktop:order-first px-10'>
 				<Sidebar setPage={setPage} currentPage={page} />
 			</div>
 

@@ -9,42 +9,31 @@ interface SidebarProps {
 }
 
 const fontSize = 23;
-// const buttonClass = `flex flex-1 justify-center item-center`
+
+const items = [
+	{ page: 'home', icon: FiHome, size: fontSize },
+	{ page: 'messages', icon: FiMessageSquare, size: fontSize },
+	{ page: 'groups', icon: GrGroup, size: fontSize - 2 },
+	{ page: 'profile', icon: FaRegUser, size: fontSize - 4 },
+	{ page: 'settings', icon: FiSettings, size: fontSize - 2 },
+];
 
 const Sidebar: React.FC<SidebarProps> = ({ setPage, currentPage }): React.ReactNode => {
 	return (
 		<aside className={`flex justify-center items-center w-full h-full`}>
 			<div className='bg-[var(--bg)] flex justify-between items-center h-full w-full py-2 px-4'>
-				<button
-					className={`flex flex-1 justify-center item-center`}
-					onClick={() => setPage('home')}
-				>
-					<FiHome size={fontSize} className='text-[var(--text)]' />
-				</button>
-				<button
-					className={`flex flex-1 justify-center item-center`}
-					onClick={() => setPage('messages')}
-				>
-					<FiMessageSquare size={fontSize} className='text-[var(--text)]' />
-				</button>
-				<button
-					className={`flex flex-1 justify-center item-center`}
-					onClick={() => setPage('groups')}
-				>
-					<GrGroup size={fontSize - 2} className='text-[var(--text)]' />
-				</button>
-				<button
-					className={`flex flex-1 justify-center item-center`}
-					onClick={() => setPage('profile')}
-				>
-					<FaRegUser size={fontSize - 4} className='text-[var(--text)]' />
-				</button>
-				<button
-					className={`flex flex-1 justify-center item-center`}
-					onClick={() => setPage('settings')}
-				>
-					<FiSettings size={fontSize - 2} className="text-[var(--text)]" />
-				</button>
+				{items.map((item) => {
+					const Icon = item.icon;
+					return (
+						<button
+							key={item.page} 
+							className={`flex h-10 w-10 justify-center items-center rounded-full ${currentPage === item.page ? 'bg-[var(--bg-dark)]' : ''}`}
+							onClick={() => setPage(item.page)}
+						>
+							<Icon size={item.size} className='text-[var(--text)]' />
+						</button>
+					);
+				})}
 			</div>
 		</aside>
 	);
