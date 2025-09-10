@@ -1,7 +1,8 @@
-import { useAuth } from "../context/useAuth";
-import { Outlet, Navigate } from "react-router-dom";
+import React from 'react';
+import { useAuth } from '../context/useAuth';
+import { Outlet, Navigate } from 'react-router-dom';
 
-const ProtectedRoutes: React.FC = () => {
+const ProtectedRoutes: React.FC = (): React.ReactNode => {
 	const { isAuth, isLoading } = useAuth();
 
 	if (isLoading) {
@@ -12,7 +13,7 @@ const ProtectedRoutes: React.FC = () => {
 		return <Outlet />;
 	}
 
-	return <Navigate to="/login" replace />;
+	return <Navigate to='/login' replace />;
 };
 
 export default ProtectedRoutes;
