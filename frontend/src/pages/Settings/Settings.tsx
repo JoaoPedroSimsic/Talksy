@@ -10,33 +10,40 @@ import handleChangeEmail from './utils/handleChangeEmail';
 import handleChangePassword from './utils/handleChangePassword';
 import handleLogout from './utils/handleLogout';
 
+import { HiOutlineMail } from 'react-icons/hi';
+import { LuKeyRound } from "react-icons/lu";
+import { MdLogout } from "react-icons/md";
+
 const Settings: React.FC = (): React.ReactNode => {
 	const [changeEmail, showChangeEmail] = useState(false);
 	const [changePassword, showChangePassword] = useState(false);
 	const [logoutModal, showLogoutModal] = useState(false);
-	const [deleteModal, showDeleteModal] = useState(false);
+	// const [deleteModal, showDeleteModal] = useState(false);
 
 	const settingsOptions = [
 		{
+			icon: HiOutlineMail,
 			title: 'Change Email',
 			description: 'Change your email',
 			onClick: (): void => showChangeEmail(true),
 		},
 		{
+			icon: LuKeyRound,
 			title: 'Change Password',
 			description: 'Update your password',
 			onClick: (): void => showChangePassword(true),
 		},
 		{
+			icon: MdLogout,
 			title: 'Logout',
 			description: 'Log out of your current account',
 			onClick: (): void => showLogoutModal(true),
 		},
-		{
-			title: 'Delete Account',
-			description: 'Delete your current account forever',
-			onClick: (): void => showDeleteModal(true), 
-		}
+		// {
+		// 	title: 'Delete Account',
+		// 	description: 'Delete your current account forever',
+		// 	onClick: (): void => showDeleteModal(true),
+		// },
 	];
 
 	return (
@@ -44,6 +51,7 @@ const Settings: React.FC = (): React.ReactNode => {
 			{settingsOptions.map((opt, index) => (
 				<OptionCard
 					key={index}
+					icon={opt.icon}
 					title={opt.title}
 					description={opt.description}
 					onClick={opt.onClick}
