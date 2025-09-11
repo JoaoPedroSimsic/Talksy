@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import OptionCard from './components/OptionCard';
-import Modal from '../../components/Modal';
+import BottomSheet from '../../components/BottomSheet';
 import ChangeEmailModal from './components/ChangeEmailModal';
 import ChangePasswordModal from './components/ChangePasswordModal';
 import LogoutModal from './components/LogoutModal';
@@ -11,14 +11,15 @@ import handleChangePassword from './utils/handleChangePassword';
 import handleLogout from './utils/handleLogout';
 
 import { HiOutlineMail } from 'react-icons/hi';
-import { LuKeyRound } from "react-icons/lu";
-import { MdLogout } from "react-icons/md";
+import { LuKeyRound } from 'react-icons/lu';
+import { MdLogout } from 'react-icons/md';
+import { MdOutlineNoAccounts } from 'react-icons/md';
 
 const Settings: React.FC = (): React.ReactNode => {
 	const [changeEmail, showChangeEmail] = useState(false);
 	const [changePassword, showChangePassword] = useState(false);
 	const [logoutModal, showLogoutModal] = useState(false);
-	// const [deleteModal, showDeleteModal] = useState(false);
+	const [deleteModal, showDeleteModal] = useState(false);
 
 	const settingsOptions = [
 		{
@@ -39,11 +40,12 @@ const Settings: React.FC = (): React.ReactNode => {
 			description: 'Log out of your current account',
 			onClick: (): void => showLogoutModal(true),
 		},
-		// {
-		// 	title: 'Delete Account',
-		// 	description: 'Delete your current account forever',
-		// 	onClick: (): void => showDeleteModal(true),
-		// },
+		{
+			icon: MdOutlineNoAccounts,
+			title: 'Delete Account',
+			description: 'Delete your current account forever',
+			onClick: (): void => showDeleteModal(true),
+		},
 	];
 
 	return (
@@ -58,20 +60,21 @@ const Settings: React.FC = (): React.ReactNode => {
 				/>
 			))}
 
-			<Modal isOpen={changeEmail} onClose={(): void => showChangeEmail(false)}>
+			<BottomSheet isOpen={changeEmail} onClose={(): void => showChangeEmail(false)}>
 				<ChangeEmailModal onClose={() => showChangeEmail(false)} onConfirm={handleChangeEmail} />
-			</Modal>
+			</BottomSheet>
 
-			<Modal isOpen={changePassword} onClose={(): void => showChangePassword(false)}>
+			<BottomSheet isOpen={changePassword} onClose={(): void => showChangePassword(false)}>
 				<ChangePasswordModal
 					onClose={() => showChangePassword(false)}
 					onConfirm={handleChangePassword}
 				/>
-			</Modal>
+			</BottomSheet>
 
-			<Modal isOpen={logoutModal} onClose={(): void => showLogoutModal(false)}>
+			<BottomSheet isOpen={logoutModal} onClose={(): void => showLogoutModal(false)}>
 				<LogoutModal onClose={() => showLogoutModal(false)} onConfirm={handleLogout} />
-			</Modal>
+			</BottomSheet>
+
 		</div>
 	);
 };

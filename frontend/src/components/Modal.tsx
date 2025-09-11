@@ -24,12 +24,12 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }): React.React
       <div className='absolute inset-0 bg-black opacity-30'></div>
 
       <div
-        className='relative bg-white w-2/3 p-6 rounded-2xl shadow-xl'
+        className='relative bg-[var(--bg)] w-2/3 px-6 py-4 rounded-[var(--round)] shadow-xl'
         onClick={(e) => e.stopPropagation()}
       >
         <div className='w-full flex justify-end items-center'>
           <button
-            className='h-4 flex justify-center items-center text-gray-500 hover:text-gray-800 text-xl font-bold'
+            className='h-7 w-7 flex rounded-full hover:bg-[var(--bg-dark)] justify-center items-center text-[var(--text)] text-xl font-bold'
             onClick={onClose}
             aria-label='Close modal'
           >

@@ -8,12 +8,24 @@ interface OptionCardProps {
 	onClick: () => void;
 }
 
-const OptionCard: React.FC<OptionCardProps> = ({ icon: Icon, title, description, onClick }): React.ReactNode => {
+const OptionCard: React.FC<OptionCardProps> = ({
+	icon: Icon,
+	title,
+	description,
+	onClick,
+}): React.ReactNode => {
 	return (
-		<div className='flex justify-center items-center w-9/10 m-1 py-3 pl-5 pr-3'>
+		<div className='flex justify-center items-center w-full m-1 py-3 pl-7 pr-5'>
 			<div className='flex justify-between items-center h-full w-full'>
 				<div className='flex justify-start items-center w-80'>
-					{Icon && <Icon size={25} className="text-[var(--text)] mr-5"/>}
+					{Icon && (
+						<div className='flex h-10 w-10 justify-center items-center bg-[var(--bg-dark)] rounded-full mr-5'>
+							<Icon
+								size={25}
+								className='text-[var(--text)]'
+							/>
+						</div>
+					)}
 					<div className='flex flex-col'>
 						<span className='whitespace-nowrap text-sm text-[var(--text)]'>{title}</span>
 						{description && (

@@ -38,31 +38,24 @@ const ChangeEmailModal: React.FC<ModalProps> = ({ onClose, onConfirm }): React.R
 	};
 
 	return (
-		<div className='bg-white'>
-			<h2 className='text-lg font-semibold mb-4'>Change Email</h2>
-			<p className='text-gray-600 mb-4'>Enter your new email address below:</p>
+		<div className='bg-[var(--bg)]'>
+			<h2 className='text-[var(--text)] text-lg font-bold mb-4'>Change Email</h2>
+			<p className='text-[var(--text-muted)] mb-4'>Enter your new email address below:</p>
 
 			<input
 				type='email'
 				value={newEmail}
 				onChange={(e) => setNewEmail(e.target.value)}
-				className={`w-full mb-4 p-2 focus:outline-none focus:ring-1 focus:ring-primary border border-solid rounded-md transition-colors duration-300 ease-in-out ${error ? 'border-red-500' : 'border-gray-300'} ${loading ? 'bg-gray-200 cursor-not-allowed' : 'bg-white'}`}
+				className={`focus:outline-none w-full mb-4 p-2 border border-solid text-[var(--text)] rounded-[var(--round)] border-[var(--border)] bg-[var(--bg-light)]`}
 				placeholder='newemail@example.com'
 				required
 			/>
 
-			{error && <p className='text-red-500 text-sm mb-3'>{error}</p>}
+			{error && <p className='text-[var(--danger)] text-sm mb-5'>{error}</p>}
 
-			<div className='flex justify-end space-x-3'>
+			<div className='flex justify-center space-x-3'>
 				<button
-					className='px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300 transition'
-					onClick={onClose}
-					disabled={loading}
-				>
-					Cancel
-				</button>
-				<button
-					className='px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition disabled:opacity-50'
+					className='px-15 py-2 mt-2 rounded-full bg-[var(--bg)] text-[var(--primary)] border border-[var(--border)] hover:bg-[var(--bg-light)] transition disabled:opacity-50'
 					onClick={handleConfirm}
 					disabled={loading}
 				>
