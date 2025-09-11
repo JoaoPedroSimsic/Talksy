@@ -22,15 +22,17 @@ const App: React.FC = (): React.ReactNode => {
 		}
 	};
 
+	const sidebarClass = page === 'settings' ? 'h-3/10' : 'h-1/10';
+
 	return (
 		<div className='flex flex-col desktop:flex-row h-screen w-screen bg-[var(--bg)]'>
-			{page !== 'settings' && (
-				<header className='flex justify-center items-center desktop:hidden h-1/10 w-screen'>
-					<Header page={page} />
-				</header>
-			)}
+			<header
+				className={`flex justify-center items-center desktop:hidden w-screen ${sidebarClass}`}
+			>
+				<Header page={page} />
+			</header>
 
-			<div className='flex justify-center items-center desktop:flex-col h-1/12 w-screen desktop:h-screen order-last desktop:order-first px-10'>
+			<div className='flex justify-center items-center desktop:flex-col h-15 w-screen desktop:h-screen order-last desktop:order-first px-10'>
 				<Sidebar setPage={setPage} currentPage={page} />
 			</div>
 
