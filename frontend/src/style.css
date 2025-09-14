@@ -48,8 +48,8 @@ body {
 	--highlight: oklch(0.5 0 138);
 	--border: oklch(0.4 0 138);
 	--border-muted: oklch(0.3 0 138);
-	--primary: oklch(0.76 0.1 138);
-	--secondary: oklch(0.86 0.1 138);
+	--primary: oklch(0.4 0.1 138);
+	--secondary: oklch(0.6 0.1 138);
 	--danger: oklch(0.7 0.05 30);
 	--warning: oklch(0.7 0.05 100);
 	--success: oklch(0.7 0.05 160);
