@@ -15,15 +15,15 @@ const OptionCard: React.FC<OptionCardProps> = ({
 	onClick,
 }): React.ReactNode => {
 	return (
-		<div className='flex justify-center items-center w-full m-1 py-3 pl-7 pr-5'>
+		<div
+			onClick={onClick}
+			className='flex justify-center items-center w-full m-1 py-3 pl-7 pr-5 active:bg-[var(--bg-light)] transition ease-in-out'
+		>
 			<div className='flex justify-between items-center h-full w-full'>
 				<div className='flex justify-start items-center w-80'>
 					{Icon && (
 						<div className='flex h-10 w-10 justify-center items-center bg-[var(--bg-dark)] rounded-full mr-5'>
-							<Icon
-								size={25}
-								className='text-[var(--text)]'
-							/>
+							<Icon size={25} className='text-[var(--text)]' />
 						</div>
 					)}
 					<div className='flex flex-col'>
@@ -35,12 +35,11 @@ const OptionCard: React.FC<OptionCardProps> = ({
 						)}
 					</div>
 				</div>
-				<button
-					onClick={onClick}
+				<span
 					className={`text-[var(--text)] flex justify-end items-center h-full w-20 p-2 text-sm rounded-full`}
 				>
 					<IoIosArrowForward />
-				</button>
+				</span>
 			</div>
 		</div>
 	);
