@@ -6,7 +6,7 @@ import axios from 'axios';
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [isAuth, setIsAuth] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
-    const didCheckAuth = useRef(false); // 👈 Use useRef to track if the check has already run
+    const didCheckAuth = useRef(false); 
 
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const authCheckEndpoint = `${backendUrl}/auth/check`;
