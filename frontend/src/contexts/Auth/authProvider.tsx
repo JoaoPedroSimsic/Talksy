@@ -1,11 +1,12 @@
 import React from 'react';
-import { useState, useEffect, ReactNode } from 'react';
+import { useState, useEffect, ReactNode, useRef } from 'react';
 import { AuthContext } from './authContext';
 import axios from 'axios';
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [isAuth, setIsAuth] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const didCheckAuth = useRef(false); // 👈 Use useRef to track if the check has already run
 
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const authCheckEndpoint = `${backendUrl}/auth/check`;
@@ -29,8 +30,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     };
 
     useEffect(() => {
-        checkAuthStatus();
-    }, []); 
+        if (!didCheckAuth.current) {
+            checkAuthStatus();
+            didCheckAuth.current = true;
+        }
+    }); 
 
     const value = { isAuth, isLoading, login };
 
