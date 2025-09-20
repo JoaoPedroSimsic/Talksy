@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 
-import { PageProvider } from './contexts/PageProvider';
+import { PageProvider } from './contexts/Page/PageProvider';
 import ProtectedRoutes from './components/ProtectedRoutes';
 
 import LoginRedirect from './pages/Auth/Login/LoginRedirect';
