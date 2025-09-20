@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAuth } from '../../../contexts/useAuth';
+import { useAuth } from '../../../hooks/useAuth';
 import Login from './Login';
 
 const LoginRedirect: React.FC = (): React.ReactNode => {

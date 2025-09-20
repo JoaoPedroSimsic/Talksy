@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect, ReactNode } from 'react';
-import { AuthContext } from './useAuth';
+import { AuthContext } from './authContext';
 
 import axios from 'axios';
 

@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 import PasswordInput from '../../../../components/PasswordInput';
 import Logo from '../../../../components/Logo';
-import { useAuth } from '../../../../contexts/useAuth';
+import { useAuth } from '../../../../hooks/useAuth';
 import validateEmail from '../../../../utils/validateEmail';
 import validatePassword from '../../../../utils/validatePassword';
 
