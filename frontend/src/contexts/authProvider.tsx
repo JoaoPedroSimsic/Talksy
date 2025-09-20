@@ -17,7 +17,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 				withCredentials: true,
 			});
 
-			console.log('auth checked successfully');
 			setIsAuth(true);
 		} catch {
 			setIsAuth(false);

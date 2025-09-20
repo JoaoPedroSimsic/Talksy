@@ -39,7 +39,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({ isOpen, onClose, children }) 
 					onClick={onClose}
 				>
 					<motion.div
-						className='fixed inset-x-0 bottom-0 z-50 bg-[var(--bg-dark)] p-6 rounded-t-[var(--round)] shadow-xl max-h-[90vh] overflow-y-auto'
+						className='fixed inset-x-0 bottom-0 z-50 bg-[var(--bg-dark)] p-6 rounded-t-[var(--round)] shadow-xl max-h-screen overflow-y-auto'
 						onClick={(e) => e.stopPropagation()}
 						initial={{ y: '100%' }}
 						animate={{ y: '0%' }}

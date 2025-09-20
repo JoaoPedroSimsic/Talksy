@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAuth } from '../context/useAuth';
+import { useAuth } from '../contexts/useAuth';
 import { Outlet, Navigate } from 'react-router-dom';
 
 const ProtectedRoutes: React.FC = (): React.ReactNode => {

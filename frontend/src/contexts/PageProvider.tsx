@@ -1,0 +1,13 @@
+import React, { useState } from "react";
+import { PageContext } from "./PageContext";
+import type { Page } from "../types/Pages";
+
+export const PageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [currentPage, setCurrentPage] = useState<Page>("home");
+
+  return (
+    <PageContext.Provider value={{ currentPage, setCurrentPage }}>
+      {children}
+    </PageContext.Provider>
+  );
+};

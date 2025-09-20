@@ -28,7 +28,6 @@ const BaseModal: React.FC<BaseModalProps> = ({
 
     try {
       await onConfirm();
-      onClose();
     } catch (err) {
       setError('Something went wrong, please try again.');
       console.error(err);

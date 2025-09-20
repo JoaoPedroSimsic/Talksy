@@ -1,19 +1,18 @@
 import React from 'react';
+import { usePage } from '../../hooks/usePage';
 import HomeHeader from './HomeHeader/HomeHeader';
 
-interface HeaderProps {
-	page: string;
-}
+const Header: React.FC = (): React.ReactNode => {
+	const { currentPage } = usePage();
 
-const Header: React.FC<HeaderProps> = ({ page }): React.ReactNode => {
-	let component;
+	let component: React.ReactNode;
 
-	switch (page) {
+	switch (currentPage) {
 		case 'home':
 			component = <HomeHeader />;
 			break;
 		default:
-			component = <span>no page</span>;
+			component = <span>No page</span>;
 	}
 
 	return (
