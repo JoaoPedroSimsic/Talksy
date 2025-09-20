@@ -14,8 +14,6 @@ import HomePage from './pages/Home/Home';
 import ProfilePage from './pages/Profile/Profile';
 import SettingsPage from './pages/Settings/Settings';
 
-import './style.css';
-
 const AppContent: React.FC = (): React.ReactNode => {
 	const location = useLocation();
 	const hideLayout = ['/login', '/register'].includes(location.pathname);
