@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import OptionCard from './components/OptionCard';
 import BottomSheet from '../../components/BottomSheet';
-import ChangeEmailModal from './components/ChangeEmailModal';
+import ChangeEmailPage from './pages/ChangeEmailPage';
 import ChangePasswordModal from './components/ChangePasswordModal';
 import LogoutModal from './components/LogoutModal';
 
@@ -60,9 +60,12 @@ const Settings: React.FC = (): React.ReactNode => {
 				/>
 			))}
 
-			<BottomSheet isOpen={changeEmail} onClose={(): void => showChangeEmail(false)}>
-				<ChangeEmailModal onClose={() => showChangeEmail(false)} onConfirm={handleChangeEmail} />
-			</BottomSheet>
+			{changeEmail && (
+				<ChangeEmailPage
+					onClose={() => showChangeEmail(false)}
+					onConfirm={handleChangeEmail}
+				/>
+			)}
 
 			<BottomSheet isOpen={changePassword} onClose={(): void => showChangePassword(false)}>
 				<ChangePasswordModal

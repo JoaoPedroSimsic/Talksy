@@ -3,8 +3,8 @@ import BaseModal from '../../../components/BaseModal';
 import validateEmail from '../../../utils/validateEmail';
 
 interface ChangeEmailModalProps {
-	onClose: () => void;
-	onConfirm: (newEmail: string) => Promise<void>;
+	onClose?: () => void;
+	onConfirm?: (newEmail: string) => Promise<void>;
 }
 
 const ChangeEmailModal: React.FC<ChangeEmailModalProps> = ({ onClose, onConfirm }) => {
@@ -12,10 +12,17 @@ const ChangeEmailModal: React.FC<ChangeEmailModalProps> = ({ onClose, onConfirm 
 	const [error, setError] = useState('');
 
 	const handleConfirm = async (): Promise<void> => {
-		if (!newEmail) throw new Error('Please enter a valid email');
+		if (!newEmail) {
+			setError('Enter a valid email');
+			return;
+		}
 
 		const emailError = validateEmail(newEmail);
-		if (emailError) throw new Error(emailError);
+
+		if (emailError) {
+			setError(emailError);
+			return;
+		}
 
 		await onConfirm(newEmail);
 	};
@@ -35,6 +42,7 @@ const ChangeEmailModal: React.FC<ChangeEmailModalProps> = ({ onClose, onConfirm 
 				placeholder='newemail@example.com'
 				required
 			/>
+      {error && <p className="text-[var(--danger)] text-sm mb-4">{error}</p>}
 		</BaseModal>
 	);
 };
