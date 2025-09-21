@@ -1,146 +1,88 @@
-import prisma from '../config/prismaClient';
-import { Message, Room } from '@prisma/client';
-import { Server } from 'socket.io';
+import { Server } from "socket.io";
+import prisma from "../config/prismaClient";
+import { Message, Room, User } from "@prisma/client";
 
-type MessageWithSender = Message & { sender: { username: string } };
+export type MessageWithSender = Omit<Message, "sender"> & {
+	sender: Pick<User, "username">;
+};
 
 class ChatService {
-	private io: Server | undefined;
+	private io?: Server;
 
-	constructor(ioInstance?: Server) {
-		if (ioInstance) {
-			this.io = ioInstance;
-		}
+	constructor(io?: Server) {
+		if (io) this.io = io;
 	}
 
-	public async saveMessage(
+	setIO(io: Server) {
+		this.io = io;
+	}
+
+	async saveMessage(
 		senderId: number,
 		roomId: number,
 		content: string,
 	): Promise<MessageWithSender> {
-		try {
-			const newMessage = await prisma.message.create({
-				data: {
-					senderId: senderId,
-					roomId: roomId,
-					content: content,
-				},
-				include: {
-					sender: {
-						select: { username: true },
-					},
-				},
-			});
+		const message = await prisma.message.create({
+			data: { senderId, roomId, content },
+			include: { sender: { select: { username: true } } },
+		});
 
-			return newMessage as MessageWithSender;
-		} catch (err) {
-			console.log('Error saving message: ', err);
-			throw new Error('Failed to save message');
-		}
+		return message as MessageWithSender;
 	}
 
-	public async getMessagesInRoom(
+	async getMessagesInRoom(
 		roomId: number,
 		limit = 50,
 		offset = 0,
 	): Promise<MessageWithSender[]> {
-		try {
-			const messages = await prisma.message.findMany({
-				where: { roomId: roomId },
-				orderBy: {
-					timestamp: 'asc',
-				},
-				include: {
-					sender: {
-						select: { username: true },
-					},
-				},
-				take: limit,
-				skip: offset,
-			});
+		const messages = await prisma.message.findMany({
+			where: { roomId },
+			orderBy: { timestamp: "asc" },
+			include: { sender: { select: { username: true } } },
+			take: limit,
+			skip: offset,
+		});
 
-			return messages as MessageWithSender[];
-		} catch (err) {
-			console.log('Error fetching messages: ', err);
-			throw new Error('Failed to fetch messages');
-		}
+		return messages as MessageWithSender[];
 	}
 
-	public broadcastMessage(roomId: string, message: MessageWithSender): void {
-		if (!this.io) {
-			console.log(
-				'Socket.IO instance not available in ChatService for broadcasting',
-			);
-			return;
-		}
+	broadcastMessage(roomId: string, message: MessageWithSender) {
+		if (!this.io)
+			return console.error("Socket.IO instance not set for ChatService");
 
-		this.io.to(roomId).emit('chat:message', {
+		this.io.to(roomId).emit("chat:message", {
 			id: message.id,
-			userId: message.senderId,
-			username: message.sender.username,
 			roomId: message.roomId,
 			content: message.content,
+			senderId: message.senderId,
+			username: message.sender.username,
 			timestamp: message.timestamp,
 			createdAt: message.createdAt,
 		});
 	}
 
-	public async createRoom(
-		name: string,
-		initialMemberIds: number[],
-	): Promise<Room> {
-		try {
-			const newRoom = await prisma.room.create({
-				data: {
-					name: name,
-					members: {
-						connect: initialMemberIds.map((id) => ({ id })),
-					},
-				},
-				include: {
-					members: {
-						select: { id: true, username: true },
-					},
-				},
-			});
-
-			return newRoom;
-		} catch (err) {
-			console.log('Error creating room: ', err);
-			throw new Error('Failed to create room');
-		}
+	async createRoom(name: string, initialMemberIds: number[]): Promise<Room> {
+		return prisma.room.create({
+			data: {
+				name,
+				members: { connect: initialMemberIds.map((id) => ({ id })) },
+			},
+			include: { members: { select: { id: true, username: true } } },
+		});
 	}
 
-	public async addUserToRoom(roomId: number, userId: number): Promise<void> {
-		try {
-			await prisma.room.update({
-				where: { id: roomId },
-				data: {
-					members: {
-						connect: { id: userId },
-					},
-				},
-			});
-		} catch (err) {
-			console.log('Error adding user to room: ', err);
-			throw new Error('Failed to add user to room');
-		}
+	async addUserToRoom(roomId: number, userId: number): Promise<void> {
+		await prisma.room.update({
+			where: { id: roomId },
+			data: { members: { connect: { id: userId } } },
+		});
 	}
 
-	public async removeUserFromRoom(roomId: number, userId: number): Promise<void> {
-		try {
-			await prisma.room.update({
-				where: { id: roomId },
-				data: {
-					members: {
-						disconnect: { id: userId }
-					}
-				}
-			})
-		} catch (err) {
-			console.log('Error removing user from room: ', err);
-			throw new Error('Failed to remove user from room');
-		}
+	async removeUserFromRoom(roomId: number, userId: number): Promise<void> {
+		await prisma.room.update({
+			where: { id: roomId },
+			data: { members: { disconnect: { id: userId } } },
+		});
 	}
 }
 

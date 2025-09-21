@@ -1,18 +1,18 @@
-import { Socket } from 'socket.io';
-import { ExtendedError } from 'socket.io';
-import verifyToken from '../utils/verifyToken';
-import '../types/socket'
+import { Socket } from "socket.io";
+import { ExtendedError } from "socket.io";
+import verifyToken from "../utils/verifyToken";
+import "../types/socket";
 
 type SocketAuthMiddleware = (
 	socket: Socket,
 	next: (err?: ExtendedError) => void,
 ) => void;
 
-const socketAuth: SocketAuthMiddleware = async (socket, next) => {
-	const token = socket.handshake.auth.token;
+export const authSocket: SocketAuthMiddleware = async (socket, next) => {
+	const token = socket.handshake.auth?.token;
 
 	if (!token) {
-		return next(new Error('Authentication error: Token missing'));
+		return next(new Error("Authentication error: Token missing"));
 	}
 
 	try {
@@ -24,25 +24,22 @@ const socketAuth: SocketAuthMiddleware = async (socket, next) => {
 
 		next();
 	} catch (err) {
+		console.error(
+			"Socket authentication error:",
+			err instanceof Error ? err.message : err,
+		);
 		if (err instanceof Error) {
-			if (err.message === 'Token Expired') {
-				return next(new Error('Authentication error: Token expired'));
-			} else if (err.message === 'Invalid Token') {
-				return next(new Error('Authentication error: Invalid Token'));
-			} else if (err.message === 'Invalid User') {
-				return next(new Error('Authentication error: Invalid User'));
-			} else {
-				// Log other unexpected errors
-				console.error('Socket authentication error:', err.message);
-				return next(new Error('Authentication error'));
+			switch (err.message) {
+				case "Token Expired":
+					return next(new Error("Authentication error: Token expired"));
+				case "Invalid Token":
+					return next(new Error("Authentication error: Invalid token"));
+				case "Invalid User":
+					return next(new Error("Authentication error: Invalid user"));
+				default:
+					return next(new Error("Authentication error"));
 			}
-		} else {
-			console.error(
-				'Socket authentication error: An unknown error type was thrown',
-			);
-			return next(new Error('Authentication error'));
 		}
+		next(new Error("Authentication error"));
 	}
 };
-
-export default socketAuth;

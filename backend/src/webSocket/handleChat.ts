@@ -1,65 +1,76 @@
-import { Server, Socket } from 'socket.io';
-import ChatService from '../services/ChatService';
+import { Server, Socket } from "socket.io";
+import ChatService, { MessageWithSender } from "../services/ChatService";
 
-const registerHandleChat = (io: Server) => {
-	io.on('connection', (socket: Socket) => {
-		console.log(`User connected: ${socket.userId}`);
+interface ChatMessagePayload {
+	roomId: string;
+	content: string;
+}
 
-		socket.on('room:join', async (roomId: string) => {
+interface RoomJoinPayload {
+	roomId: string;
+}
+
+interface SocketData {
+	userId?: number;
+	username?: string;
+	userEmail?: string;
+}
+
+type AuthenticatedSocket = Socket & SocketData;
+
+export const handleChat = (io: Server) => {
+	io.on("connection", (socket: AuthenticatedSocket) => {
+		console.log(`User connected: ${socket.userId} (${socket.username})`);
+
+		socket.on("room:join", async ({ roomId }: RoomJoinPayload) => {
 			try {
 				await socket.join(roomId);
-				console.log(`User ${socket.id} joined room: ${roomId}`);
+				console.log(`User ${socket.username} joined room: ${roomId}`);
 
 				const messages = await ChatService.getMessagesInRoom(Number(roomId));
-				socket.emit('chat:history', messages);
+				socket.emit("chat:history", messages);
 			} catch (err) {
-				console.log(`Error joining room ${roomId}`, err);
-				socket.emit('error:room:join', 'Failed to join room');
+				console.error(`Error joining room ${roomId}:`, err);
+				socket.emit("error:room:join", "Failed to join room");
 			}
 		});
 
-		socket.on(
-			'chat:message',
-			async (message: { roomId: string; content: string }) => {
-				if (!socket.userId || !socket.username) {
-					socket.emit(
-						'error:chat:message',
-						'Authentication required to send messages',
-					);
-					return;
-				}
+		socket.on("chat:message", async (payload: ChatMessagePayload) => {
+			if (!socket.userId || !socket.username) {
+				return socket.emit("error:chat:message", "Authentication required");
+			}
 
-				try {
-					const savedMessage = await ChatService.saveMessage(
-						Number(socket.userId),
-						Number(message.roomId),
-						message.content,
-					);
-					ChatService.broadcastMessage(message.roomId, savedMessage);
-					console.log(
-						`Message sent to room ${message.roomId} by ${socket.username}: ${message.content}`,
-					);
-				} catch (err) {
-					console.log('Error saving or broadcasting message', err);
-					socket.emit('error:chat:message', 'Failed to send message');
-				}
-			},
-		);
+			try {
+				const savedMessage: MessageWithSender = await ChatService.saveMessage(
+					socket.userId,
+					Number(payload.roomId),
+					payload.content,
+				);
 
-		socket.on('room:leave', async (roomId: string) => {
+				ChatService.broadcastMessage(payload.roomId, savedMessage);
+				console.log(
+					`Message sent to room ${payload.roomId} by ${socket.username}: ${payload.content}`,
+				);
+			} catch (err) {
+				console.error("Error saving/broadcasting message:", err);
+				socket.emit("error:chat:message", "Failed to send message");
+			}
+		});
+
+		socket.on("room:leave", async ({ roomId }: RoomJoinPayload) => {
 			try {
 				await socket.leave(roomId);
 				console.log(`User ${socket.username} left room: ${roomId}`);
 			} catch (err) {
-				console.log(`Error leaving room ${roomId}`, err);
-				socket.emit('error:room:leave', 'Failed to leave room');
+				console.error(`Error leaving room ${roomId}:`, err);
+				socket.emit("error:room:leave", "Failed to leave room");
 			}
 		});
 
-		socket.on('disconnect', () => {
-			console.log(`User disconnected: ${socket.id}`);
+		socket.on("disconnect", (reason) => {
+			console.log(
+				`User disconnected: ${socket.username ?? socket.id}, reason: ${reason}`,
+			);
 		});
 	});
 };
-
-export default registerHandleChat;
