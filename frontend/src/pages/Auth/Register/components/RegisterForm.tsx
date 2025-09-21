@@ -3,8 +3,7 @@ import axios from 'axios';
 import parseAxiosError from '../../../../helpers/parseAxiosError';
 import { useNavigate } from 'react-router-dom';
 
-
-import PasswordInput from '../../../../components/PasswordInput';
+import PasswordInput from '@/components/Inputs/PasswordInput';
 import Logo from '../../../../components/Logo';
 import { useAuth } from '../../../../hooks/useAuth';
 import validateEmail from '../../../../utils/validateEmail';
@@ -135,7 +134,9 @@ const RegisterForm: React.FC = (): React.ReactNode => {
 		<div className='bg-[var(--bg)] relative flex flex-col items-center justify-center max-h-[95%] desktop:h-auto w-4/6 py-10 rounded-xl'>
 			<div className='flex desktop:hidden absolute top-7 left-7 h-10 w-40'>
 				<Logo />
-				<span className='hidden laptop:flex items-center justify-center ml-1 text-[var(--text)] text-xl font-bold'>Talksy</span>
+				<span className='hidden laptop:flex items-center justify-center ml-1 text-[var(--text)] text-xl font-bold'>
+					Talksy
+				</span>
 			</div>
 			<div className='flex flex-col space-y-5 items-center justify-center desktop:my-3'>
 				<span className='text-[var(--text)] text-3xl font-bold'>Create an Account</span>
@@ -161,7 +162,9 @@ const RegisterForm: React.FC = (): React.ReactNode => {
 							onChange={handleInputChange}
 						/>
 						{registerState.fieldErrors.username && (
-							<p className='text-[var(--danger)] text-sm mt-1'>{registerState.fieldErrors.username}</p>
+							<p className='text-[var(--danger)] text-sm mt-1'>
+								{registerState.fieldErrors.username}
+							</p>
 						)}
 					</div>
 					<div className='mb-5'>

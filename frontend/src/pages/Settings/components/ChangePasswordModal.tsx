@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import BaseModal from '../../../components/BaseModal';
-import PasswordInput from '../../../components/PasswordInput';
+import PasswordInput from '@/components/Inputs/PasswordInput';
 import validatePassword from '../../../utils/validatePassword';
 import handleError from '../../../utils/handleError';
 

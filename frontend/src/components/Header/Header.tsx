@@ -1,25 +1,13 @@
-import React from 'react';
-import { usePage } from '../../hooks/usePage';
-import HomeHeader from './HomeHeader/HomeHeader';
+import React, { ReactNode } from "react";
+import { FaMagnifyingGlass } from "react-icons/fa6";
 
-const Header: React.FC = (): React.ReactNode => {
-	const { currentPage } = usePage();
-
-	let component: React.ReactNode;
-
-	switch (currentPage) {
-		case 'home':
-			component = <HomeHeader />;
-			break;
-		default:
-			component = <span>No page</span>;
-	}
-
+const Header: React.FC = (): ReactNode => {
 	return (
-		<div className='bg-[var(--bg)] flex justify-between items-center h-full w-full py-2'>
-			{component}
+		<div className="flex justify-between items-center px-10 py-5 w-full">
+			<span className="text-[var(--text)] text-xl font-bold">Talsky</span>
+			<FaMagnifyingGlass size={20} className="text-[var(--text)]"/>
 		</div>
-	);
-};
+	)
+}
 
 export default Header;

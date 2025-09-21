@@ -1,16 +1,38 @@
-import React from "react";
+import React, { useState } from 'react';
 
-interface Props {
-	onClose: () => void;
-	onConfirm: (newEmail: string) => Promise<void>;
-}
+import AuxHeader from '@/components/Header/AuxHeader';
+import PasswordInput from '@/components/Inputs/PasswordInput';
 
-const ChangeEmailPage: React.FC<Props> = ({ onClose, onConfirm }) => {
+import validateEmail from '../../../utils/validateEmail';
+
+const ChangeEmailPage: React.FC<ChangeEmailModalProps> = ({ onClose, onConfirm }) => {
+	const [newEmail, setNewEmail] = useState('');
+	const [error, setError] = useState('');
+
+	const handleConfirm = async (): Promise<void> => {
+		if (!newEmail) {
+			setError('Enter a valid email');
+			return;
+		}
+
+		const emailError = validateEmail(newEmail);
+
+		if (emailError) {
+			setError(emailError);
+			return;
+		}
+
+		await onConfirm(newEmail);
+	};
+
 	return (
-		<div className="flex flex-col items-center justify-center w-full h-full">
-			<h1 className="text-2xl font-bold mb-4">Change Email</h1>
-			{/* your form goes here */}
-			<button onClick={onClose} className="mt-4">Back</button>
+		<div className='h-full w-full'>
+			<AuxHeader pageName='Change Email' />
+			<div className='w-full p-10'>
+				<form>
+					<PasswordInput label='Senha' />
+				</form>
+			</div>
 		</div>
 	);
 };

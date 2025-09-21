@@ -3,7 +3,7 @@ import axios from 'axios';
 import parseAxiosError from '../../../../helpers/parseAxiosError';
 import { useNavigate } from 'react-router-dom';
 
-import PasswordInput from '../../../../components/PasswordInput';
+import PasswordInput from '@/components/Inputs/PasswordInput';
 import Logo from '../../../../components/Logo';
 import { useAuth } from '../../../../hooks/useAuth';
 import validateEmail from '../../../../utils/validateEmail';
